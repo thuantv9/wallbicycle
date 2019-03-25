@@ -1,0 +1,133 @@
+﻿@model IEnumerable<OnlineHelp.Models.Category>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>jsTree test</title>
+    <!-- 2 load the theme CSS file -->
+
+    <link href="~/Scripts/dist/themes/default/style.min.css" rel="stylesheet" />
+    <link href="~/Scripts/dist/boostrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/ss_index.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+    <!-- 5 include the minified jstree source -->
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Online Help</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#about">Welcome to Thuan Tran</a></li>
+                    <li><a href="@Url.Action("Admin","Home")"> Admin</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 sidebar">
+                <input id="Text1" type="text" class="form-control" placeholder="Search" />
+                <div id="jstree">
+                    <!-- Hàm đệ quy gọi Node cho TreeView-->
+                    @using System.Collections;
+                    @helper Addnode(int parentnode)
+                        {
+
+                            if (Model.Where(items => items.ParentCategoryID == parentnode).ToList().Any())
+                            {
+                                <ul class="menu">
+                                    @foreach (var item in Model.Where(items => items.ParentCategoryID == parentnode).ToList())
+                                    {
+                                        <li>
+                                            @item.CategoryName
+                                            @Addnode(item.CategoryID)
+                                        </li>
+                                    }
+                                </ul>
+                            }
+                        }
+                    @Addnode(0)
+                    <!-- Kết thúc hàm đệ quy gọi Node cho TreeView-->
+                    <!--Hiển thị Content-->
+                    <!-- Kết thúc hiển thị Content-->
+                </div>
+            </div>
+
+            <!-- End TreeView-->
+            <!-- Content-->
+            <div class="col-md-9" id="content">
+                @RenderBody();
+            </div>
+            <!-- End Content-->
+        </div>
+    </div>
+    <footer class="container-fluid text-center">
+        <a href="#myPage" title="To Top">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+        </a>
+        <p>Made by  <a href="https://www.w3schools.com" title="Visit w3schools">FPT IS and VCB Bank</a></p>
+    </footer>
+    <!--End Container-->
+    <!--Scipt-->
+    <script src="~/Scripts/dist/libs/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/dist/libs/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/dist/boostrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/dist/jstree.min.js"></script>
+    <script>
+        $(function () {
+            $('#jstree').jstree({
+                "plugins": ["search"],
+                "pugins": ["sort"],
+                "core": { // core options go here
+                    "multiple": false, // no multiselection
+                    "themes": {
+                        "icons": false // no connecting dots between dots
+                    }
+                },
+            });
+            var to = false;
+            $('#Text1').keyup(function () {
+                if (to) { clearTimeout(to); }
+                to = setTimeout(function () {
+                    var v = $('#Text1').val();
+                    $('#jstree').jstree(true).search(v);
+
+                }, 250);
+            });
+        });
+
+        $('#jstree').on("changed.jstree", function (e, data) {
+            GetEmployeeUsingAjax(data.instance.get_node(data.selected[0]).text.trim());
+        });
+
+        function GetEmployeeUsingAjax(categoryname) {
+            $.ajax({
+                type: 'GET',
+                url: '/Home/GetContentFromCategoryName',
+                data: { "categoryname": categoryname },
+                dataType: 'json',
+                success: function (data1) {
+                    $('#content').html(data1.Remarks);
+                },
+                error: function (c) {
+                    alert('error');
+                }
+            });
+        }
+    </script>
+    <!--End Script-->
+</body>
+</html>
+

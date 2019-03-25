@@ -1,0 +1,188 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Admin</title>
+    <link href="~/Scripts/dist/datatable/datatables.min.css" rel="stylesheet" />
+    <link href="~/Scripts/dist/boostrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/ss_index.css" rel="stylesheet" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Online Help</a>
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li><a href="@Url.Action("Index","Home")"> Index</a></li>
+                    <li><a href="@Url.Action("SignOut", "Login")">Sign Out</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="panel-group">
+            <div class="row panel panel-primary" id="onlinehelp2">
+               
+                <div class="panel-body">
+                    <div class="col-md-6" id="command">
+                        <form class="form-inline">
+                            <div class="form-group">
+                                <label for="levelfilter"> Filter By Level</label>
+                                <select class="form-control" id="levelfilter" onchange="loaddatabylevel(this.value);"></select>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-6" id="command">
+
+                        <button type="button" class="btn btn-default" onclick="addpopup();">Create New Category</button>
+                    </div>
+                </div>
+            </div>
+            <div class="alert alert-danger alert-dismissable " data-alert id="myalert" style="display:none">
+
+            </div>
+            <div id="loading">
+                <p class="alert-danger">Loading Data ...................</p>
+            </div>
+
+            <div class="row panel panel-primary" id="onlinehelp">
+                <div class="panel-heading">List Category</div>
+                <div class="panel-body">
+                    <table id="myTable" class="table table-bordered table-hover" style="width: 100%;">
+                        <thead class="bg-danger">
+                            <tr>
+
+                                <td style="width:5%">ID</td>
+                                <td style="width:5%">Level</td>
+                                <td style="width:30%">CategoryName</td>
+                                <td style="width:5%">Parent</td>
+                                <td style="width:30%">Description</td>
+                                <td style="width:25%"></td>
+                            </tr>
+                        </thead>
+                        <tbody class="tbody"></tbody>
+                    </table>
+                </div>
+                <!--modal-->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" style="width:60%">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                @*<button type="button" class="close" data-dismiss="modal">×</button>*@
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-envelope"></span> Add New Category</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="CategoryID">Category ID <span class="labels">(*)</span></label>
+                                    <input type="text" class="form-control" id="CategoryID" placeholder="Category ID" disabled="disabled" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="Level">Level Category<span class="labels">(*)</span></label>
+                                    <select class="form-control" id="Level" onchange="Getparentcategorybylevelofchild(this.value)" name="Level"></select>
+                                    <button type="button" class="btn btn-info" id="btnCreatenewlevel" onclick="return GetNewlevel();">Create Next Level</button>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="CategoryName">Category Name<span class="labels">(*)</span></label>
+                                    <input type="text" class="form-control" id="CategoryName" placeholder="Category Name" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ParentCategoryId">Parent Category Id<span class="labels">(*)</span></label>
+                                    <select class="form-control" id="ParentCategoryId" name="ParentCategoryId"></select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="MappingScreen">MappingScreen<span class="labels"></span></label>
+                                    <select class="form-control" id="MappingScreen" name="MappingScreen"></select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Description">Description<span class="labels">(*)</span></label>
+                                    <input type="text" class="form-control" id="Description" placeholder="Description" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Remarks">Remarks</label>
+                                    <textarea id="Remarks" name="txtArea" class="ckeditor form-control" rows="2" cols="20" placeholder="Remarks"></textarea>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();"><span class="glyphicon glyphicon-ok"></span> Add</button>
+                                <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update()"><span class="glyphicon glyphicon-ok"></span> Update</button>
+                                <button type="button" class="btn btn-danger btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Ket thuc modal-->
+                <!--modal-->
+                <div class="modal fade" id="modalshowcontent" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" style="width:80%">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title" id="modalshowcontentLabel"><span class="glyphicon glyphicon-th"></span> Show Remarks</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div id="modalshowcontent_body">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Ket thuc modal-->
+
+                </div>
+            </div>
+            <div class="row panel panel-primary" id="onlinehelp">
+                <div class="panel-heading">Import Mapping Screen</div>
+                <div class="panel-body">
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <label for="excelfile">Select a file excel</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="file" id="excelfile" />
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-danger" onclick="importexcel()">Import Excel</button>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-danger" onclick="exportexcel()">Export  Excel</button>
+                        </div>
+                    </form>
+                </div>
+                <table id="myTable2" class="table table-bordered table-hover" style="width: 100%;"></table>
+            </div>
+
+        </div>
+    </div>
+    <script src="~/Scripts/dist/libs/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/dist/boostrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootbox.min.js"></script>
+    <script src="~/ckeditor/ckeditor.js"></script>
+    <script src="~/ckfinder/ckfinder.js"></script>
+    <script src="~/Scripts/dist/datatable/datatables.min.js"></script>
+    <script src="~/Scripts/category.js"></script>
+    <script src="~/Scripts/xls.core.min.js"></script>
+    <script src="~/Scripts/xlsx.core.min.js"></script>
+    <script src="~/Scripts/jquery.table2excel.min.js"></script>
+    <script>
+        CKFinder.setupCKEditor(null, '/ckfinder');
+    </script>
+</body>
+</html>

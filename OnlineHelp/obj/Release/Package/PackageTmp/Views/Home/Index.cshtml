@@ -1,0 +1,168 @@
+﻿@model IEnumerable<OnlineHelp.Models.Category>
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Online Help</title>
+    <!-- 2 load the theme CSS file -->
+    <link href="~/Scripts/dist/themes/default/style.min.css" rel="stylesheet" />
+    <link href="~/Scripts/dist/boostrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/ss_index.css" rel="stylesheet" />  
+    <!-- 5 include the minified jstree source -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script>
+        $(document).ready(function () {
+            // Initialize Tooltip
+            $('[data-toggle="tooltip"]').tooltip();
+        })
+    </script>
+</head>
+<body id="myPage">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @*<a class="navbar-brand" href="#">Online Help</a>*@
+                <img style="width : 168px; height : 68px; " src="~/Content/logofis.png" />
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="@Url.Action("Admin","Home")"> Sign In</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid" id="content_onlinehelp">
+        <div class="row">
+            <div class="col-md-3" id="sidebar_wrapper">
+                <div id="sidebar">
+                    <input id="Text1" type="text" class="form-control" placeholder="Search" />
+                    <div id="jstree">
+                        <!-- Hàm đệ quy gọi Node cho TreeView-->
+                        @using System.Collections;
+                        @helper Addnode(int parentnode)
+{
+
+    if (Model.Where(items => items.ParentCategoryID == parentnode).ToList().Any())
+    {
+        <ul class="menu">
+            @foreach (var item in Model.Where(items => items.ParentCategoryID == parentnode).ToList())
+            {
+                <li id="@item.CategoryID" data-toggle="tooltip" data-placement="top" title="@item.CategoryName">
+                    @item.CategoryName
+                    @Addnode(item.CategoryID)
+                </li>
+            }
+        </ul>
+    }
+}
+                        @Addnode(0)
+                        <!-- Kết thúc hàm đệ quy gọi Node cho TreeView-->
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- End TreeView-->
+            <!-- Content-->
+            <div class="col-md-9">
+                <div id="content">
+                </div>
+            </div>
+            <!-- End Content-->
+        </div>
+    </div>
+    <footer class="container-fluid text-center">
+        <a class="up-arrow" data-toggle="tooltip" href="#myPage" title="To Top">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+        </a>
+        <p>Made by  <a href="#" title="">ThuanTV9</a></p>
+    </footer>
+    <!--End Container-->
+    <!--Scipt-->
+    <script src="~/Scripts/dist/libs/jquery-3.3.1.min.js"></script>
+    <script src="~/Scripts/dist/boostrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/dist/jstree.min.js"></script>
+    
+    <script>
+
+    $(function () {
+        $('#jstree').jstree({
+            "plugins": ["search"],
+            "pugins": ["sort"],
+            "core": { // core options go here
+                "multiple": false, // no multiselection
+                "themes": {
+                    "icons": false // no connecting dots between dots
+                }
+            },
+        });
+        var instance = $('#jstree').jstree(true);
+        @*instance.select_node("@ViewBag.categoryid");
+            GetEmployeeUsingAjax(@ViewBag.categoryid);*@
+        @using OnlineHelp.Models;
+        @if (ViewBag.mappingscreen != null)
+        {
+            @:instance.select_node(@ViewBag.mappingscreen.CategoryID);
+            @:GetEmployeeUsingAjax(@ViewBag.mappingscreen.CategoryID);
+        }     
+        var to = false;
+        $('#Text1').keyup(function () {
+            if (to) { clearTimeout(to); }
+            to = setTimeout(function () {
+                var v = $('#Text1').val();
+                $('#jstree').jstree(true).search(v);
+
+            }, 250);
+        });
+    });
+
+    $('#jstree').on("changed.jstree", function (e, data) {
+        // hàm alert này chính là lấy id của li, khi đó có thể truyền categoryid hoặc bất cứ cái gì để truy vấn đến content
+        //alert(data.instance.get_node(data.selected[0]).id.trim());
+        //GetEmployeeUsingAjax(data.instance.get_node(data.selected[0]).text.trim());
+        GetEmployeeUsingAjax(data.instance.get_node(data.selected[0]).id.trim());
+    });
+
+    function GetEmployeeUsingAjax(categoryid) {
+        $.ajax({
+            url: "/Home/GetByID/" + categoryid,
+            type: "GET",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            success: function (result) {
+                $('#content').html(result.Remarks);
+            },
+            error: function (errormessage) {
+                alert(errormessage.responseText);
+            }
+        });
+    }
+    //function GetCategory_ByMappingScreen(screenid) {
+    //    $.ajax({
+    //        url: "/Home/GetByMappingScreen" + screenid,
+    //        type: "GET",
+    //        contentType: "application/json;charset=utf-8",
+    //        dataType: "json",
+    //        success: function (result) {
+    //            $('#content').html(result.Remarks);
+    //        },
+    //        error: function (errormessage) {
+    //            alert(errormessage.responseText);
+    //        }
+    //    });
+    //}
+    </script>
+    <!--End Script-->
+</body>
+
+</html>
+
