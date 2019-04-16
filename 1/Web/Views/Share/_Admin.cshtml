@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow"><link rel="shortcut icon" href="img/favicon.png">
+    <title>Inox Linh Kiên Admin </title>
+    <link href="/admin_dist/dist/datatable/datatables.min.css" rel="stylesheet" />   
+    <link href="/admin_dist/dist/boostrap/css/bootstrap.min.css" rel="stylesheet" />    
+    <link href="/admin_dist/dist/boostrap/css/bootstrap-theme.min.css" rel="stylesheet" />   
+    @*<link href="/admin_dist/css/font-awesome.css" rel="stylesheet" />*@
+    <!-- Custom styles -->
+    <link href="/admin_dist/css/styleadmin.css" rel="stylesheet">
+    <link href="/admin_dist/css/style-responsive.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- container section start -->
+    <section id="container" class="">
+        <header class="header dark-bg">            
+            <!--logo start-->
+            <a href="@Url.Action("Product","Admin")" class="logo"> Trang quản trị<span class="lite"></span></a>
+            <!--logo end-->
+            <div class="nav search-row" id="top_menu">
+                <!--  search form start -->
+                <ul class="nav top-menu">
+                    <li>
+                        <form class="navbar-form">
+                            <input class="form-control" placeholder="Search" type="text">
+                        </form>
+                    </li>
+                </ul>
+                <!--  search form end -->
+            </div>
+            
+        </header>
+        <!--header end-->
+        <!--sidebar start-->
+        <aside>
+            <div id="sidebar" class="nav-collapse ">
+                <!-- sidebar menu start-->
+                <ul class="sidebar-menu">
+                   
+                    <li class="active">
+                        <a href="@Url.Action("Product","Admin")" class="">
+                            <i class="icon_document_alt"></i>
+                            <span>Sản phẩm</span>
+                        </a>
+
+                    </li>
+                    <li class="sub-menu">
+                        <a href="@Url.Action("Category","Admin")" class="">
+                            <i class="icon_desktop"></i>
+                            <span>Chủng loại</span>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a class="" href="@Url.Action("Customer","Admin")">
+                            <i class="icon_genius"></i>
+                            <span>Khách hàng</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="@Url.Action("News","Admin")" class="">
+                            <i class="icon_documents_alt"></i>
+                            <span>Tin tức</span>
+                        </a>
+                    </li>
+
+                    <li class="sub-menu">
+                        <a href="@Url.Action("SlideImage", "Admin")" class="">
+                            <i class="icon_documents_alt"></i>
+                            <span>Slide hình ảnh</span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- sidebar menu end-->
+            </div>
+        </aside>
+        <!--sidebar end-->
+        <!--main content start-->
+        <section id="main-content">
+            <section class="wrapper">
+                @RenderBody()
+            </section>            
+        </section>
+        <!--main content end-->
+    </section>
+    <!-- container section start -->
+    <!-- javascripts -->   
+    <script src="/admin_dist/dist/libs/jquery-3.3.1.min.js"></script>
+    <script src="/admin_dist/dist/boostrap/js/bootstrap.min.js"></script>
+    <script src="/admin_dist/dist/datatable/datatables.min.js"></script>
+    <script src="/ckeditor/ckeditor.js"></script>
+    <script src="/ckfinder/ckfinder.js"></script>
+    <script src="/admin_dist/dist/bootbox.min.js"></script>
+    <script>
+        CKFinder.setupCKEditor(null, '/ckfinder');
+    </script>   
+    @RenderSection("productjs",required:false)
+    @RenderSection("categoryjs", required: false)
+    @RenderSection("customerjs", required: false)
+    @RenderSection("userjs", required: false)
+    @RenderSection("orderjs", required: false)
+    @RenderSection("newsjs", required: false)   
+    @RenderSection("slidejs",required:false)
+    @RenderSection("tagsjs", required: false);
+</body>
+</html>

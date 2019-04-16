@@ -1,0 +1,122 @@
+﻿@{
+    ViewBag.Title = "Product";
+    Layout = "~/Views/Share/_Admin.cshtml";
+}
+<div class="container">
+    <div class="row">
+            <button type="button" class="btn btn-default" onclick="addpopup();">Thêm mới xe</button>     
+    </div>
+    <div class="row">
+        <table id="myTable" class="table table-bordered table-hover table-responsive" style="width: 100%;">
+            <thead class="bg-danger">
+                <tr>
+                    <td style="width:5%">ID</td>
+                    <td style="width:25%">Tên xe</td>
+                    <td style="width:10%">Nguồn gốc</td>
+                    <td style="width:5%">Chủng loại</td>                   
+                    <td style="width:25%">Ảnh</td>
+                    <td style="width:20%"></td>
+                </tr>
+            </thead>
+            <tbody class="tbody"></tbody>
+
+        </table>
+        <!--modal-->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" style="width:60%">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-envelope"></span> Thêm mới sản phẩm</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="Id">Mã xe <span class="labels">(*)</span></label>
+                            <input type="text" class="form-control" id="Id" placeholder="Mã xe" disabled="disabled" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Name">Tên xe <span class="labels">(*)</span></label>
+                            <input type="text" class="form-control" id="Name" placeholder="Tên xe" />
+                        </div>
+                        <div class="form-group">
+                            <label for="MadeFrom">Nguồn gốc<span class="labels">(*)</span></label>
+                            <input type="text" class="form-control" id="MadeFrom" placeholder="Nguồn gốc" />
+
+                        </div>
+                        <div class="form-group">
+                            <label for="CategoryId">Mã chủng loại<span class="labels">(*)</span></label>
+                            <select class="form-control" id="CategoryId" name="CategoryId"></select>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="Quantity">Số lượng<span class="labels">(*)</span></label>
+                            <input type="text" class="form-control" id="Quantity" placeholder="Số lượng" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Value">Giá<span class="labels">(*)</span></label>
+                            <input type="text" class="form-control" id="Value" placeholder="Giá xe" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Tag">Tags<span class="labels">(*)</span></label>
+                            <input type="text" class="form-control" id="Tag" placeholder="Tag" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Image">Ảnh 1<span class="labels">(*)</span></label>
+                            <input type="text" id="Image1" size="60" placeholder="Ảnh" />
+                            <input type="button" value="Chọn ảnh" onclick="BrowseServer1();" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Image">Ảnh 2<span class="labels">(*)</span></label>
+                            <input type="text" id="Image2" size="60" placeholder="Ảnh" />
+                            <input type="button" value="Chọn ảnh" onclick="BrowseServer2();" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Image">Ảnh 3<span class="labels">(*)</span></label>
+                            <input type="text"  id="Image3" size="60" placeholder="Ảnh" />
+                            <input type="button" value="Chọn ảnh" onclick="BrowseServer3();" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Image">Ảnh 4<span class="labels">(*)</span></label>
+                            <input type="text" id="Image4" size="60" placeholder="Ảnh" />
+                            <input type="button" value="Chọn ảnh" onclick="BrowseServer4();" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Seo">Từ khóa SEO<span class="labels">(*)</span></label>
+                            <input type="text" class="form-control" id="Seo" placeholder="Từ khóa Seo" />
+                        </div>
+                        <div class="form-group">
+                            <label for="Remark">Mô tả</label>
+                            <textarea id="Remark" name="txtArea" class="ckeditor form-control" rows="2" cols="20" placeholder="GHi chú"></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();"><span class="glyphicon glyphicon-ok"></span> Thêm mới</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update()"><span class="glyphicon glyphicon-ok"></span>Cập nhật</button>
+                        <button type="button" class="btn btn-danger btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Ket thuc modal-->
+        <!-- model show content-->
+        <div class="modal fade" id="modalshowcontent" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" style="width:80%">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="modalshowcontentLabel"><span class="glyphicon glyphicon-th"></span> Mô tả chi tiết xe</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="modalshowcontent_body">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Ket thuc show content modal-->
+    </div>
+</div>
+@section productjs
+{
+    <script src="/admin_dist/js/product.js"></script>
+}

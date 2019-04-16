@@ -1,0 +1,311 @@
+﻿@model  IEnumerable<Web.Models.Category>
+@using Web.Models;
+@{
+    ViewBag.Title = "Thiết bị Inox Linh Kiên- Chuyên cung cấp thiết bị inox, tủ bếp, giường bệnh viện, xe đẩy inox tại Thái Bình";
+    Layout = "~/Views/Share/_Home.cshtml";
+}
+<div class="main_slider">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            @{
+                int k = 0;
+                IEnumerable<SlideImage> _slideimage = ViewBag.Slide;
+                IEnumerable<SlideImage> slides;
+                if (_slideimage != null && _slideimage.Count() > 5)
+                {
+                    slides = _slideimage.Take(5);
+                }
+                else
+                {
+                    slides = _slideimage;
+                }
+                if (slides!=null && slides.Count() > 0)
+                {
+                    foreach (SlideImage slide in slides)
+                    {
+                        if (k == 0)
+                        {
+                            <div class="item active">
+                                <img src="@slide.SlideImageName" alt="Inox nhà hàng, tủ nấu cơm inox" class="img-responsive">
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="item ">
+                                <img src="@slide.SlideImageName" alt="Inox nhà hàng, tủ nấu cơm inox" class="img-responsive">
+                            </div>
+                        }
+                        k++;
+                    }
+                }
+            }
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+<!-- Banner -->
+@*<div class="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="banner_item align-items-center" style="background-image:url(/images/banner_1.jpg)">
+                        <div class="banner_category">
+                            <a href="@Url.Action("About","Home")">Máy móc hiện đại</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="banner_item align-items-center" style="background-image:url(/images/banner_2.jpg)">
+                        <div class="banner_category">
+                            <a href="@Url.Action("About","Home")">Kinh nghiệm uy tín</a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="banner_item align-items-center" style="background-image:url(/images/banner_3.jpg)">
+                        <div class="banner_category">
+                            <a href="@Url.Action("Index2","Home")">Sản phẩm đa dạng</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+<!-- New Arrivals -->
+<div class="new_arrivals">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <div class="section_title new_arrivals_title">
+                    <h2>Sản phẩm mới</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col text-center">
+                <div class="new_arrivals_sorting">
+                    <ul class="arrivals_grid_sorting clearfix button-group filters-button-group">
+                        <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center active is-checked" data-filter="*">Tất cả</li>
+                        @{
+                            if (Model != null && Model.Any())
+                            {
+                                int i = Model.Count();
+                                IEnumerable<Web.Models.Category> listcategory;
+                                if (i > 3)
+                                {
+                                    listcategory = Model.Take(8);
+                                }
+                                else
+                                {
+                                    listcategory = Model;
+                                }
+                                foreach (var p in listcategory)
+                                {
+                                    <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".@p.CategoryId">@p.CategoryName</li>
+                                }
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="product-grid" data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
+                    @using System.Collections;
+                    @{
+                        var getlistproduct = ViewBag.Product as IEnumerable<Web.Models.Product>;
+                        if (getlistproduct != null && getlistproduct.Any())
+                        {
+                            foreach (var p in getlistproduct)
+                            {
+                                <div class="product-item @p.CategoryId">
+                                    <div class="product discount product_filter">
+                                        <div class="product_image">
+                                            <a href="@Url.Action("Product", "Home", new { id = p.GenerateItemNameAsParam()})"><img src="@p.Image" alt="@p.Name,@p.MadeFrom,Thái Bình"></a>
+                                        </div>
+                                        <div class="favorite favorite_left"></div>
+                                        <div class="product_info">
+                                            <h6 class="product_name"><a href="@Url.Action("Product","Home",new { id = p.GenerateItemNameAsParam()})">@p.Name</a></h6>
+                                            <div class="product_price">Chất liệu: @p.MadeFrom@*<span>@p.Dimenson</span>*@</div>
+                                        </div>
+                                    </div>
+                                    <div class="red_button add_to_cart_button"><a href="@Url.Action("Product","Home",new { id = p.GenerateItemNameAsParam()})">Xem chi tiết</a></div>
+                                </div>
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Deal of the week -->
+<div class="deal_ofthe_week">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 col-md-6">
+                <div class="deal_ofthe_week_img">
+                    <img src="/images/avatar%20new.jpg" />
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 text-center deal_ofthe_week_col">
+                <div class="deal_ofthe_week_content d-flex flex-column align-items-center float-right">
+                    <div class="section_title">
+                        <h2>Phương châm kinh doanh</h2>
+                    </div>
+                    <div class="section_title1">
+                        <p>
+                            Chúng tôi luôn cố gắng nỗ lực để mang lại cho khách hàng những sản phẩm với chất lượng, mẫu mã tốt nhất.
+                            Sự hài lòng của khách hàng là niềm hạnh phúc đối với chúng tôi
+                        </p>
+                        <p>
+                            Giám đốc công ty: Vũ Ngọc Kiên.
+                        </p>
+                    </div>
+                    <div class="red_button deal_ofthe_week_button"><a href="@Url.Action("About","Home")">Tìm hiểu thêm</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Best Sellers -->
+<div class="best_sellers">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <div class="section_title new_arrivals_title">
+                    <h2>Dự án đã thực hiện</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="product_slider_container">
+                    <div class="owl-carousel owl-theme product_slider">
+                        @using System.Collections;
+                        @{
+                            var listcustomer = ViewBag.Customer as IEnumerable<Web.Models.Customer>;
+                            if (listcustomer != null && listcustomer.Any())
+                            {
+                                foreach (var p in listcustomer)
+                                {
+                                    <div class="owl-item product_slider_item">
+                                        <div class="product-item">
+                                            <div class="product">
+                                                <div class="product_image">
+                                                    <img src="@p.CustomerImage" class="img-responsive" alt="Inox Thái Bình,@p.CustomerName,@p.CustomerDescription">
+                                                </div>
+                                                <div class="product_info">
+                                                    <h6 class="product_name"></h6>
+                                                    <div class="product_price"><a href="@Url.Action("Customer", "Home", new RouteValueDictionary(new { id = @p.CustomerId}))">@p.CustomerName</a></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+                    <!-- Slider Navigation -->
+                    <div class="product_slider_nav_left product_slider_nav">
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                    </div>
+                    <div class="product_slider_nav_right product_slider_nav">
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Benefit -->
+<div class="benefit">
+    <div class="container-fluid">
+        <div class="row benefit_row">
+            <div class="col-lg-3 benefit_col">
+                <div class="benefit_item">
+                    <div class="benefit_icon"><i class="fa fa-truck" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>Uy tín cao</h6>
+                        <p>Đặt uy tín lên hàng đầu</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 benefit_col">
+                <div class="benefit_item">
+                    <div class="benefit_icon"><i class="fa fa-money" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>Mẫu mã đa dạng</h6>
+                        <p>Đa dạng các loại sản phẩm</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 benefit_col">
+                <div class="benefit_item">
+                    <div class="benefit_icon"><i class="fa fa-undo" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>Giá cả cạnh tranh</h6>
+                        <p>Mức giá hợp lý nhất</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 benefit_col">
+                <div class="benefit_item">
+                    <div class="benefit_icon"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>Giao hàng nhanh</h6>
+                        <p>Hoàn thiện nhanh, giao hàng chóng</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Blogs -->
+<div class="blogs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-6">
+                <span class="blog_title1">Tin tức mới nhất</span>
+            </div>
+            <div class="col-xs-6 text-right">
+                <a class="blog_more" href="@Url.Action("NewsAll","Home")"> Xem thêm</a>
+            </div>
+        </div>
+        <div class="row blogs_container">
+
+            @{
+                var listnews = ViewBag.News as IEnumerable<Web.Models.News>;
+                if (listnews != null && listnews.Any())
+                {
+                    foreach (var p in listnews)
+                    {
+                        <div class="col-xs-12 col-md-4">
+                            <div class="blog_image"><a href="@Url.Action("News", "Home", new { id=@p.NewsId})"><img class="img-rounded" src="@p.NewsImage"></a></div>
+                            <div class="blog_content">
+                                <h3 class="blog_title"><a href="@Url.Action("News", "Home", new { id = @p.NewsId })">@p.NewsName.ToUpper()</a></h3>
+                                <div class="blog_meta text-justify">@Html.Raw(p.NewsDescription)</div>
+                                <p class="blog_madeby"><a href="@Url.Action("News", "Home", new { id = @p.NewsId })">Viết bởi: @p.NewsMadeby</a></p>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        </div>
+
+    </div>
+</div>
+<!-- Scirpt-->

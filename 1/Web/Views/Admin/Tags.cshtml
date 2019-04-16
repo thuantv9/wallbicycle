@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Web.Models.Tags>
+
+@{
+    ViewBag.Title = "Tags";
+    Layout = "~/Views/Share/_Admin.cshtml";
+}
+
+<h2>Tags</h2>
+
+<p>
+   <span>Thêm mới Tags</span>
+   <div class="form" ></div>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Tag)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tag)
+            </td>
+        </tr>
+    }
+
+</table>

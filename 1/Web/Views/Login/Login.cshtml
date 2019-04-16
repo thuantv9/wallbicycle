@@ -1,0 +1,54 @@
+﻿@model Web.Models.User
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Online Help Login</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.4 -->
+    <link href="~/Scripts/dist/boostrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+  @*  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">*@
+    <link href="~/Scripts/distADMINLTE/css/AdminLTE.min.css" rel="stylesheet" />   
+</head>
+<body class="login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a><b>Online Help</b> Login</a>
+        </div><!-- /.login-logo -->
+        <div class="login-box-body">
+            <p class="login-box-msg">Sign in to start your session</p>
+            @using (Html.BeginForm("Login", "Login", new { ReturnUrl = this.Request.Params["ReturnUrl"] }, FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <div class="form-group has-feedback">
+                    @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder = "Account" })
+                    @Html.ValidationMessageFor(model => model.UserName)
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Password" })
+                    @Html.ValidationMessageFor(model => model.Password)
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4 pull-right">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                    </div>
+
+                </div>
+            }
+        </div>
+    </div>
+    <!-- jQuery 2.1.4 -->
+    <script src="~/Scripts/dist/libs/jquery-3.3.1.min.js"></script>
+    <!-- Bootstrap 3.3.4 -->
+    <script src="~/Scripts/dist/boostrap/js/bootstrap.min.js"></script>
+    <!-- iCheck -->
+</body>
+</html>

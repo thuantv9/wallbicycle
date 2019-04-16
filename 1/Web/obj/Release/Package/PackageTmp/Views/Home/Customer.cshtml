@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Web.Models.Customer>
+@{
+    ViewBag.Title = "Khách hàng Inox Linh Kiên Thái Bình: bệnh viện Lâm Hoa, ....";
+    Layout = "~/Views/Share/_Home.cshtml";
+}
+@section categoriesstyle {
+    <link rel="stylesheet" type="text/css" href="/styles/categories_styles.css">
+    <link rel="stylesheet" type="text/css" href="/styles/categories_responsive.css">
+}
+<div class="container product_section_container">
+    <div class="row">
+        <div class="col product_section clearfix">
+            <!-- Breadcrumbs -->
+            <div class="breadcrumbs d-flex flex-row align-items-center">
+                <ul>
+                    <li><a href="@Url.Action("Index2","Home")">Trang chủ</a></li>
+                    <li class="active"><a href="@Url.Action("Customer","Home")"><i class="fa fa-angle-right" aria-hidden="true"></i>Dự án</a></li>
+                </ul>
+            </div>
+            <!-- Sidebar -->
+            <div class="sidebar1">               
+                <div class="sidebar_section">
+                    <div class="sidebar_title">
+                        <h5>Dự án</h5>
+                    </div>
+                    <ul class="sidebar_categories">
+                        @{
+                            if (Model != null && Model.Any())
+                            {
+                                foreach (var p in Model)
+                                {
+                                    <li><a href="@Url.Action("Customer", "Home", new RouteValueDictionary(new { id= @p.CustomerId}))">@p.CustomerName</a></li>
+                                }
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+            <!-- Main Content -->
+            <div class="main_content1">
+                <!-- Products -->
+                <div class="products_iso">
+                    <div class="row">
+                        <div class="col">
+                            <!-- Product Grid -->
+                            <div class="product-grid">
+                               @{
+                                    var t = ViewBag.CustomerId;
+                                    IEnumerable<Web.Models.Customer> listcustomer;
+                                    if(t=="")
+                                    {
+                                        listcustomer = Model.Where(i => i.CustomerId == 1);
+                                    }
+                                    else
+                                    {
+                                        listcustomer = Model.Where(i => i.CustomerId == Int32.Parse(t));
+                                    }
+                                    if(listcustomer!=null && listcustomer.Any())
+                                    {
+                                        foreach(var p in listcustomer)
+                                        {
+                                            <span>@Html.Raw(p.CustomerRemark)</span>
+                                        }
+                                    }
+                               }
+                            </div>                          
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section categoriesjs{
+    <script src="/js/categories_custom.js"></script>
+    }

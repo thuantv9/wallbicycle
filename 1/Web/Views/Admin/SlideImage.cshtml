@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "SlideImage";
+    Layout = "~/Views/Share/_Admin.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <button type="button" class="btn btn-default" onclick="addpopup();">Thêm mới slide</button>
+    </div>
+    <div class="row">
+        <table id="myTable" class="table table-bordered table-hover table-responsive" style="width: 100%;">
+            <thead class="bg-danger">
+                <tr>
+                    <td style="width:10%">Mã slide</td>
+                    <td style="width:30%">Hình ảnh</td>
+                    <td style="width:50%">Ảnh      </td>
+                    <td style="width:10%">Thao tác</td>
+                </tr>
+            </thead>
+            <tbody class="tbody"></tbody>
+        </table>
+        <!--modal-->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" style="width:60%">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-envelope"></span> Thêm mới slide</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="SlideId">Mã slide <span class="labels">(*)</span></label>
+                            <input type="text" class="form-control" id="SlideId" placeholder="Mã tin" disabled="disabled" />
+                        </div>
+                        <div class="form-group">
+                            <label for="SlideImageName">Hình ảnh <span class="labels">(*)</span></label>
+                            <input type="text" class="form-control" id="SlideImageName" placeholder="Tiêu đề" />
+                        </div>
+                        <div class="form-group">
+                            <input type="button" value="Chọn ảnh" onclick="BrowseServer();" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();"><span class="glyphicon glyphicon-ok"></span> Thêm mới</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update()"><span class="glyphicon glyphicon-ok"></span>Cập nhật</button>
+                        <button type="button" class="btn btn-danger btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy bỏ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Ket thuc modal-->
+    </div>
+</div>
+@section slidejs
+{
+    <script src="/admin_dist/js/slide.js"></script>
+}
+

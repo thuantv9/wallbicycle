@@ -1,0 +1,33 @@
+﻿@model Web.Models.News
+@{
+    ViewBag.Title = "Tin tức về inox Thái Bình";
+    Layout = "~/Views/Share/_Home.cshtml";
+}
+@section singlestyle{
+    <link rel="stylesheet" type="text/css" href="/styles/single_styles.css">
+}
+<div class="container news">
+    <div class="row">
+        <div class="breadcrumbs">
+            <ul class="">
+                <li><a href="@Url.Action("Index2","Home")"> Trang chủ <i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                <li><a href="@Url.Action("NewsAll","Home")"> Tin Tức </a></li>
+                <li class="active"><a href="@Url.Action("News", "Home", new { id = @Model.NewsId})"><i class="fa fa-angle-right" aria-hidden="true"></i>@Model.NewsId</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-md-8 news_content">
+            <div class="news_title">@Model.NewsName</div>
+            <div class="img-responsive"><img src="@Model.NewsImage"></div>
+            <div>@Html.Raw(Model.NewsDescription)</div>
+            <div class="news_remark">@Html.Raw(Model.NewsRemark)</div>
+            <div class="text-right text-warning">@Model.NewsMadeby</div>
+        </div>
+        <div class="hidden-sm col-md-4 news_side">
+            <img src="/images/side.jpg" />
+            <img src="/images/side2.png" />
+        </div>
+    </div>
+</div>
+

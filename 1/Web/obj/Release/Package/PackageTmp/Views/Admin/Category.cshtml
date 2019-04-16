@@ -1,0 +1,62 @@
+﻿
+@{
+    ViewBag.Title = "Category";
+    Layout = "~/Views/Share/_Admin.cshtml";
+}
+<div class="container">
+    <div class="row">        
+        <div class="col-md-12" id="command">
+            <button type="button" class="btn btn-default" onclick="addpopup();">Tạo mới chủng loại sản phẩm</button>
+        </div>
+    </div>    
+    <div class="row">
+        <table id="myTable" class="table table-bordered table-hover table-responsive" style="width:100%;">
+            <thead class="bg-danger">
+                <tr style="font-weight:600">
+                    <td style="width:15%">Mã chủng loại</td>
+                    <td style="width:45%">Tên chủng loại</td>
+                    <td style="width:40%">Thao tác</td>
+                </tr>
+            </thead>
+            <tbody class="tbody"></tbody>
+        </table>
+        <!--modal-->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" style="width:60%">
+                <div class="modal-content">
+                    <div class="modal-header">                      
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-envelope"></span> Thêm mới chủng loại</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="CategoryId">Mã chủng loại <span class="labels">(*)</span></label>
+                            <input type="text" class="form-control" id="CategoryId" placeholder="Mã chủng loại " disabled="disabled" />
+                        </div>
+                        <div class="form-group">
+                            <label for="CategoryName">Tên chủng loại <span class="labels">(*)</span></label>
+                            <input type="text" class="form-control" id="CategoryName" placeholder="Tên chủng loại " disabled="disabled" />
+                        </div>
+                        <!--bo sung seo-->
+                        <div class="form-group">
+                            <label for="CategorySeo">Từ khóa Seo <span class="labels">(*)</span></label>
+                            <input type="text" class="form-control" id="CategorySeo" placeholder="Từ khóa Seo " disabled="disabled" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();"><span class="glyphicon glyphicon-ok"></span> Thêm mới</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update()"><span class="glyphicon glyphicon-ok"></span> Cập nhật</button>
+                        <button type="button" class="btn btn-danger btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Ket thuc modal-->       
+    </div>
+</div>
+@section categoryjs
+{
+    <script src="/admin_dist/js/category.js"></script>
+}
+
+

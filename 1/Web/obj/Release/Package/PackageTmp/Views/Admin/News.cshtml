@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "News";
+    Layout = "~/Views/Share/_Admin.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <button type="button" class="btn btn-default" onclick="addpopup();">Thêm mới tin</button>
+    </div>
+    <div class="row">
+        <table id="myTable" class="table table-bordered table-hover table-responsive" style="width: 100%;">
+            <thead class="bg-danger">
+                <tr>
+                    <td style="width:10%">Mã tin</td>
+                    <td style="width:32%">Tiêu đề</td>
+                    <td style="width:33%">Ảnh</td>                    
+                    <td style="width:25%">Thao tác</td>
+                </tr>
+            </thead>
+            <tbody class="tbody"></tbody>
+
+        </table>
+        <!--modal-->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" style="width:60%">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel"><span class="glyphicon glyphicon-envelope"></span> Thêm mới tin</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="NewsId">Mã tin <span class="labels">(*)</span></label>
+                            <input type="text" class="form-control" id="NewsId" placeholder="Mã tin" disabled="disabled" />
+                        </div>
+                        <div class="form-group">
+                            <label for="NewsName">Tiêu đề <span class="labels">(*)</span></label>
+                            <input type="text" class="form-control" id="NewsName" placeholder="Tiêu đề" />
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="NewsImage">Ảnh<span class="labels">(*)</span></label>
+                            <input type="text" class="form-control" id="NewsImage" placeholder="Ảnh" />
+                        </div>
+                        <div class="form-group">
+                            <input type="button" value="Thay ảnh" onclick="BrowseServer();" />
+                        </div>
+                        <div class="form-group">
+                            <label for="NewsDescription">Mô tả ngắn gọn</label>
+                            <textarea id="NewsDescription" name="txtArea" class="ckeditor form-control" rows="2" cols="20" placeholder="Mô tả ngắn gọn"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="NewsRemark">Chi tiết tin</label>
+                            <textarea id="NewsRemark" name="txtArea" class="ckeditor form-control" rows="2" cols="20" placeholder="Chi tiết"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="NewsMadeby">Viết bởi <span class="labels">(*)</span></label>
+                            <input type="text" class="form-control" id="NewsMadeby" placeholder="Viết bởi"/>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="btnAdd" onclick="return Add();"><span class="glyphicon glyphicon-ok"></span> Thêm mới</button>
+                        <button type="button" class="btn btn-primary" id="btnUpdate" style="display:none;" onclick="Update()"><span class="glyphicon glyphicon-ok"></span>Cập nhật</button>
+                        <button type="button" class="btn btn-danger btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Hủy bỏ</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Ket thuc modal-->
+        <!-- model show content-->
+        <div class="modal fade" id="modalshowcontent" tabindex="-2" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" style="width:80%">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="modalshowcontentLabel"><span class="glyphicon glyphicon-th"></span> Nội dung chi tiết</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div id="modalshowcontent_body">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Ket thuc show content modal-->
+    </div>
+</div>
+@section newsjs
+{
+    <script src="/admin_dist/js/news.js"></script>
+}
+
+

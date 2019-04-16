@@ -1,0 +1,174 @@
+﻿@model Web.Models.Product
+@{
+    ViewBag.Title = "Sản phẩm inox tại công ty Inox Linh Kiên Thái Bình";
+    Layout = "~/Views/Share/_Home.cshtml";
+}
+@section singlestyle{
+    <link rel="stylesheet" type="text/css" href="/styles/single_styles.css">
+    <link rel="stylesheet" type="text/css" href="/styles/single_responsive.css">
+}
+<div class="container single_product_container">
+    <div class="row">
+        <div class="col">
+            <!-- Breadcrumbs -->
+            <div class="breadcrumbs @*d-flex flex-row align-items-center*@">
+                <ul>
+                    <li><a href="@Url.Action("Index2","Home")">Trang chủ</a></li>
+                    @*<li><a href="@Url.Action("Category","Home")"><i class="fa fa-angle-right" aria-hidden="true"></i>Sản phẩm</a></li>*@
+                    <li class="active"><a href="@Url.Action("Product", "Home", new { id = @Model.GenerateItemNameAsParam()})"><i class="fa fa-angle-right" aria-hidden="true"></i>@Model.Name</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-7">
+            <div class="single_product_pics">
+                <div class="row">
+                    <div class="col-lg-12 image_col order-lg-2 order-1">
+                        <div class="single_product_image">
+                            <div class="single_product_image_background" style="background-image:url(@Model.Image)"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="product_details">
+                <div class="product_details_title">
+                    <h2>@Model.Name</h2>
+                    <p>@Model.Dimenson</p>
+                </div>
+                <div class="free_delivery d-flex flex-row align-items-center justify-content-center">
+                    <span class="ti-truck"></span><span>Miễn phí giao hàng</span>
+                </div>
+                <div class="product_price">Giá : liên hệ</div>
+                <ul class="star_rating">
+                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                    <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                </ul>
+                <div class="product_color">
+                    <span>Chất liệu:</span>
+                    <span> @Model.MadeFrom</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Tabs -->
+<div class="tabs_section_container">
+    <div class="container">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#mota">Mô tả</a></li>
+            <li><a data-toggle="tab" href="#thongtinbosung">Thông tin bổ sung</a></li>
+            <li><a data-toggle="tab" href="#nhanxet">Nhận xét</a></li>
+        </ul>
+        <div class="tab-content">
+            <div id="mota" class="tab-pane fade in active">
+                <h4>Thông tin sản phẩm</h4>               
+                    <p>@Html.Raw(Model.Remark)</p>                
+            </div>
+            <!-- Tab Additional Info -->
+            <div id="thongtinbosung" class="tab-pane fade">
+                <h4>Thông tin bổ sung</h4>
+                <p>Chất liệu và màu sắc:<span>Trắng</span></p>
+                <p>Kích thước:<span>Nhiều chủng loại</span></p>
+            </div>
+            <div id="nhanxet" class="tab-pane fade">
+                <h4>Nhận xét (2)</h4>
+                <!-- User Review -->
+                <div class="user_review_container d-flex flex-column flex-sm-row">
+                    <div class="user">
+                        <div class="user_pic"></div>
+                        <div class="user_rating">
+                            <ul class="star_rating">
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="review">
+                        <div class="review_date">27 Aug 2016</div>
+                        <div class="user_name">A. Nguyễn Văn Cường</div>
+                        <p>Sản phẩm công ty đã mang lại nhiều giá trị và sự tiện dụng cho ngôi nhà của chúng tôi.</p>
+                    </div>
+                </div>
+                <!-- User Review -->
+                <!-- User Review -->
+                <div class="user_review_container d-flex flex-column flex-sm-row">
+                    <div class="user">
+                        <div class="user_pic"></div>
+                        <div class="user_rating">
+                            <ul class="star_rating">
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star" aria-hidden="true"></i></li>
+                                <li><i class="fa fa-star-o" aria-hidden="true"></i></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="review">
+                        <div class="review_date">27 Aug 2018</div>
+                        <div class="user_name">A. Trịnh Đình Anh</div>
+                        <p>Nhà hàng của chúng tôi đã có được những sản phẩm Inox sáng mới, thẩm mỹ, tiện ích cao. Chất lượng gia công tốt, giao hàng nhanh chóng, làm việc nhiệt tình</p>
+                    </div>
+                </div>
+            </div>
+            <!-- End User Review-->
+        </div>
+    </div>
+</div>
+<!-- Benefit -->
+<div class="benefit">
+    <div class="container-fluid">
+        <div class="row benefit_row">
+            <div class="col-lg-3 benefit_col">
+                <div class="benefit_item d-flex flex-row align-items-center">
+                    <div class="benefit_icon"><i class="fa fa-truck" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>Uy tín cao</h6>
+                        <p>Đặt uy tín lên hàng đầu</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 benefit_col">
+                <div class="benefit_item d-flex flex-row align-items-center">
+                    <div class="benefit_icon"><i class="fa fa-money" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>Mẫu mã đa dạng</h6>
+                        <p>Đa dạng các loại sản phẩm</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 benefit_col">
+                <div class="benefit_item d-flex flex-row align-items-center">
+                    <div class="benefit_icon"><i class="fa fa-undo" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>Giá cả cạnh tranh</h6>
+                        <p>Mức giá hợp lý nhất</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 benefit_col">
+                <div class="benefit_item d-flex flex-row align-items-center">
+                    <div class="benefit_icon"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
+                    <div class="benefit_content">
+                        <h6>Giao hàng nhanh</h6>
+                        <p>Hoàn thiện nhanh, giao hàng chóng</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section singlejs{
+    <script src="/js/single_custom.js"></script>
+}
+
+

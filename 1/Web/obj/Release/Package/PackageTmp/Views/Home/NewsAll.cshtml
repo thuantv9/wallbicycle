@@ -1,0 +1,30 @@
+﻿@model  IEnumerable<Web.Models.News>
+
+@{
+    ViewBag.Title = "NewsAll";
+    Layout = "~/Views/Share/_Home.cshtml";
+}
+
+<h2>NewsAll</h2>
+<div class="container newsall">
+    @using System.Collections;
+    @{
+        foreach (var item in Model.AsEnumerable())
+        {
+            <div class="row newsall_item">
+                <div class="col-sx-12 col-md-4">
+                    <div class="newsall_item_image img-responsive img-rounded">
+                        <a href="@Url.Action("News", "Home", new { id=@item.NewsId})"><img src="@item.NewsImage" alt="Ảnh" /></a>
+                    </div>
+                </div>
+                <div class="col-sx-12 col-md-8">
+                    <div class="newsall_item_content ">
+                        <div class="newsall_item_content_title"><a href="@Url.Action("News", "Home", new { id=@item.NewsId})"> @item.NewsName </a></div>
+                        <p>@Html.Raw(item.NewsDescription)</p>
+                        <p>Viết bởi: @item.NewsMadeby </p>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>
