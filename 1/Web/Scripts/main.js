@@ -298,11 +298,7 @@ function showmodal(id) {
             $('#modal-galery-imageproduct').val(html);
             $('#modal-producName').val(result.Name);
             $('#modal-productValue').val(result.Value);
-           
-            //$('#myModalLabel').html('<span class="glyphicon glyphicon-envelope"></span> Chỉnh sửa sản phẩm');
             $('#myModal').modal('show');
-            //$('#btnUpdate').show();
-            //$('#btnAdd').hide();
         },
         error: function (errormessage) {
             alert(errormessage.responseText);
@@ -315,6 +311,5 @@ String.format = function () {
         var reg = new RegExp("\\{" + i + "\\}", "gm");
         s = s.replace(reg, arguments[i + 1]);
     }
-
     return s;
 }
