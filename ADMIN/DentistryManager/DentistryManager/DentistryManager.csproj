@@ -159,6 +159,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Common\LocalDataSource.cs" />
+    <Compile Include="Common\ProtectData.cs" />
     <Compile Include="Common\SQLHelper.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Common\Const.cs" />
