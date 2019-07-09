@@ -1,0 +1,127 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-title">
+    <div class="title_left">
+        <h3>Lịch hẹn <small>Click vào để thêm lịch hẹn</small></h3>
+    </div>
+
+    <div class="title_right">
+        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Tìm kiếm cho...">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">Search!</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="x_panel">
+            <div class="x_title">
+                <h2>Lịch hẹn <small>bệnh nhân</small></h2>
+                <ul class="nav navbar-right panel_toolbox">
+                    <li>
+                        <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+                <div id='calendar'></div>
+            </div>
+        </div>
+    </div>
+</div>
+@section FullCalendarModal{
+    <!-- calendar modal -->
+    <div id="CalenderModalNew" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel">New Calendar Entry</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="testmodal" style="padding: 5px 20px;">
+                        <form id="antoform" class="form-horizontal calender" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Title</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="title" name="title">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Description</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" style="height:55px;" id="descr" name="descr"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary antosubmit">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="CalenderModalEdit" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title" id="myModalLabel2">Edit Calendar Entry</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div id="testmodal2" style="padding: 5px 20px;">
+                        <form id="antoform2" class="form-horizontal calender" role="form">
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Title</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="title2" name="title2">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Description</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" style="height:55px;" id="descr2" name="descr"></textarea>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default antoclose2" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary antosubmit2">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="fc_create" data-toggle="modal" data-target="#CalenderModalNew"></div>
+    <div id="fc_edit" data-toggle="modal" data-target="#CalenderModalEdit"></div>
+    <!-- /calendar modal -->
+}
+
+@section FullCalendar{
+    <!-- FullCalendar -->
+    <link href="~/vendors/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
+    <link href="~/vendors/fullcalendar/dist/fullcalendar.print.css" rel="stylesheet" media="print">
+    <!-- FullCalendar -->
+    <script src="~/vendors/moment/min/moment.min.js"></script>
+    <script src="~/vendors/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="~/vendors/fullcalendar/dist/lang/vi.js"></script>
+}
