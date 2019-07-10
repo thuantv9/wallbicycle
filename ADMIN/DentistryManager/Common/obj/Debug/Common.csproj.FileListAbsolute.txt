@@ -1,0 +1,5 @@
+E:\Xe Đạp\Github\wallbicycle\ADMIN\DentistryManager\Common\bin\Debug\Common.dll
+E:\Xe Đạp\Github\wallbicycle\ADMIN\DentistryManager\Common\bin\Debug\Common.pdb
+E:\Xe Đạp\Github\wallbicycle\ADMIN\DentistryManager\Common\obj\Debug\Common.csprojResolveAssemblyReference.cache
+E:\Xe Đạp\Github\wallbicycle\ADMIN\DentistryManager\Common\obj\Debug\Common.dll
+E:\Xe Đạp\Github\wallbicycle\ADMIN\DentistryManager\Common\obj\Debug\Common.pdb
