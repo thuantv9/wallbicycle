@@ -246,13 +246,14 @@
     <!-- NProgress -->
     <script src="~/vendors/nprogress/nprogress.js"></script>
 
+    @RenderSection("FullCalendar", required: false)
+    @RenderSection("Form", required: false)
     <!-- Custom Theme Scripts -->
     <script src="~/vendors/main/js/custom.js"></script>
 
     <!-- Another Scripts-->
     <!-- FullCalendar -->
-    @RenderSection("FullCalendar", required: false)
-
+  
     @*@Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
         @RenderSection("scripts", required: false)*@

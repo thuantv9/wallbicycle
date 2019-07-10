@@ -108,6 +108,8 @@ namespace DentistryManager.Models
 
         public int Add(Events entity)
         {
+            int res = SqlHelper.ExecuteNonQuery(Const.Connectring, "InsertEvents", entity);
+            return res;
             throw new NotImplementedException();
         }
 
@@ -118,6 +120,7 @@ namespace DentistryManager.Models
 
         public int Edit(Events entity)
         {
+
             throw new NotImplementedException();
         }
     }

@@ -10,309 +10,307 @@ using System.ComponentModel;
 namespace DentistryManager.Common
 {
     public class LocalDataSource
-    {       
-        public class LocalDataSource
+    {
+        public static List<T> GetListDataFromProcedure<T>(string connectionString, string procName, params object[] paramsProcs) where T : class, new()
         {
-            public static List<T> GetListDataFromProcedure<T>(string connectionString, string procName, params object[] paramsProcs) where T : class, new()
+            try
             {
-                try
-                {
-                    var ds = new DataSet();
-                    if (paramsProcs.IsNull())
-                        ds = SqlHelper.ExecuteDataset(connectionString, CommandType.StoredProcedure, procName);
-                    else
-                        ds = SqlHelper.ExecuteDataset(connectionString, procName, paramsProcs);
-                    var obj = DataTableToList<T>(ds.Tables[0]);
-                    return obj;
-                }
-                catch (Exception ex)
-                {
-                    return null;
-                }
+                var ds = new DataSet();
+                if (paramsProcs.IsNull())
+                    ds = SqlHelper.ExecuteDataset(connectionString, CommandType.StoredProcedure, procName);
+                else
+                    ds = SqlHelper.ExecuteDataset(connectionString, procName, paramsProcs);
+                var obj = DataTableToList<T>(ds.Tables[0]);
+                return obj;
             }
-            public static List<T> GetListDataFromCommand<T>(string connectionString, string sqlCommand) where T : class, new()
+            catch (Exception ex)
             {
-                try
-                {
-                    var ds = SqlHelper.ExecuteDataset(connectionString, CommandType.Text, sqlCommand);
-                    var obj = DataTableToList<T>(ds.Tables[0]);
-                    return obj;
-                }
-                catch (Exception ex)
-                {
-
-                    return null;
-                }
+                return null;
             }
-            public static T GetDataFromProcedure<T>(string connectionString, string procName, params object[] paramsProcs) where T : class, new()
+        }
+        public static List<T> GetListDataFromCommand<T>(string connectionString, string sqlCommand) where T : class, new()
+        {
+            try
             {
-                try
-                {
-                    var ds = new DataSet();
-                    if (paramsProcs.IsNull())
-                        ds = SqlHelper.ExecuteDataset(connectionString, CommandType.StoredProcedure, procName);
-                    else
-                        ds = SqlHelper.ExecuteDataset(connectionString, procName, paramsProcs);
-                    var obj = DataTableToList<T>(ds.Tables[0]);
-                    return obj.FirstOrDefault();
-                }
-                catch (Exception ex)
-                {
-
-                    return null;
-                }
+                var ds = SqlHelper.ExecuteDataset(connectionString, CommandType.Text, sqlCommand);
+                var obj = DataTableToList<T>(ds.Tables[0]);
+                return obj;
             }
-            public static T GetDataFromCommand<T>(string connectionString, string sqlCommand) where T : class, new()
+            catch (Exception ex)
             {
-                try
-                {
-                    var ds = SqlHelper.ExecuteDataset(connectionString, CommandType.Text, sqlCommand);
-                    var obj = DataTableToList<T>(ds.Tables[0]);
-                    return obj.FirstOrDefault();
-                }
-                catch (Exception ex)
-                {
 
-                    return null;
-                }
+                return null;
             }
-            public static DataSet GetDataSetFromProcedure(string connectionString, string procName, params object[] paramsProcs)
+        }
+        public static T GetDataFromProcedure<T>(string connectionString, string procName, params object[] paramsProcs) where T : class, new()
+        {
+            try
             {
-                try
-                {
-                    var ds = new DataSet();
-                    if (paramsProcs.IsNull())
-                        ds = SqlHelper.ExecuteDataset(connectionString, CommandType.StoredProcedure, procName);
-                    else
-                        ds = SqlHelper.ExecuteDataset(connectionString, procName, paramsProcs);
-                    return ds;
-                }
-                catch (Exception ex)
-                {
-
-                    return null;
-                }
+                var ds = new DataSet();
+                if (paramsProcs.IsNull())
+                    ds = SqlHelper.ExecuteDataset(connectionString, CommandType.StoredProcedure, procName);
+                else
+                    ds = SqlHelper.ExecuteDataset(connectionString, procName, paramsProcs);
+                var obj = DataTableToList<T>(ds.Tables[0]);
+                return obj.FirstOrDefault();
             }
-            public static DataSet GetDataSetFromCommand(string connectionString, string sqlCommand)
+            catch (Exception ex)
             {
-                try
-                {
-                    return SqlHelper.ExecuteDataset(connectionString, CommandType.Text, sqlCommand);
-                }
-                catch (Exception ex)
-                {
 
-                    return null;
-                }
+                return null;
             }
-            public static DataTable GetDataTableFromProceduce(string connectionString, string procName, params object[] paramsProcs)
+        }
+        public static T GetDataFromCommand<T>(string connectionString, string sqlCommand) where T : class, new()
+        {
+            try
             {
-                try
-                {
-                    var ds = new DataSet();
-                    if (paramsProcs.IsNull())
-                        ds = SqlHelper.ExecuteDataset(connectionString, CommandType.StoredProcedure, procName);
-                    else
-                        ds = SqlHelper.ExecuteDataset(connectionString, procName, paramsProcs);
-                    return ds.Tables[0];
-                }
-                catch (Exception ex)
-                {
-
-                    return null;
-                }
+                var ds = SqlHelper.ExecuteDataset(connectionString, CommandType.Text, sqlCommand);
+                var obj = DataTableToList<T>(ds.Tables[0]);
+                return obj.FirstOrDefault();
             }
-            public static DataTable GetDataTableFromCommand(string connectionString, string sqlCommand)
+            catch (Exception ex)
             {
-                try
-                {
-                    var ds = SqlHelper.ExecuteDataset(connectionString, CommandType.Text, sqlCommand);
-                    return ds.Tables[0];
-                }
-                catch (Exception ex)
-                {
 
-                    return null;
-                }
+                return null;
             }
-
-
-            public static List<T> DataTableToList<T>(DataTable data) where T : class, new()
+        }
+        public static DataSet GetDataSetFromProcedure(string connectionString, string procName, params object[] paramsProcs)
+        {
+            try
             {
-                try
+                var ds = new DataSet();
+                if (paramsProcs.IsNull())
+                    ds = SqlHelper.ExecuteDataset(connectionString, CommandType.StoredProcedure, procName);
+                else
+                    ds = SqlHelper.ExecuteDataset(connectionString, procName, paramsProcs);
+                return ds;
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+        }
+        public static DataSet GetDataSetFromCommand(string connectionString, string sqlCommand)
+        {
+            try
+            {
+                return SqlHelper.ExecuteDataset(connectionString, CommandType.Text, sqlCommand);
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+        }
+        public static DataTable GetDataTableFromProceduce(string connectionString, string procName, params object[] paramsProcs)
+        {
+            try
+            {
+                var ds = new DataSet();
+                if (paramsProcs.IsNull())
+                    ds = SqlHelper.ExecuteDataset(connectionString, CommandType.StoredProcedure, procName);
+                else
+                    ds = SqlHelper.ExecuteDataset(connectionString, procName, paramsProcs);
+                return ds.Tables[0];
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+        }
+        public static DataTable GetDataTableFromCommand(string connectionString, string sqlCommand)
+        {
+            try
+            {
+                var ds = SqlHelper.ExecuteDataset(connectionString, CommandType.Text, sqlCommand);
+                return ds.Tables[0];
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+        }
+
+
+        public static List<T> DataTableToList<T>(DataTable data) where T : class, new()
+        {
+            try
+            {
+                var result = new List<T>();
+                foreach (var row in data.AsEnumerable())
                 {
-                    var result = new List<T>();
-                    foreach (var row in data.AsEnumerable())
+                    T obj = new T();
+                    foreach (var prop in obj.GetType().GetProperties())
                     {
-                        T obj = new T();
-                        foreach (var prop in obj.GetType().GetProperties())
+                        try
                         {
-                            try
-                            {
-                                PropertyInfo propertyInfo = obj.GetType().GetProperty(prop.Name);
-                                propertyInfo.SetValue(obj, Convert.ChangeType(row[prop.Name], propertyInfo.PropertyType), null);
-                            }
-                            catch
-                            {
-                                continue;
-                            }
+                            PropertyInfo propertyInfo = obj.GetType().GetProperty(prop.Name);
+                            propertyInfo.SetValue(obj, Convert.ChangeType(row[prop.Name], propertyInfo.PropertyType), null);
                         }
-                        result.Add(obj);
-                    }
-                    return result;
-                }
-                catch (Exception ex)
-                {
-
-                    return null;
-                }
-            }
-            public static DataTable ConvertToDataTable<T>(IList<T> data)
-            {
-                try
-                {
-                    var obj = new DataTable();
-                    var props = TypeDescriptor.GetProperties(typeof(T));
-                    for (int i = 0; i < props.Count; i++)
-                    {
-                        PropertyDescriptor prop = props[i];
-                        obj.Columns.Add(prop.Name, prop.PropertyType);
-                    }
-                    object[] values = new object[props.Count];
-                    foreach (T item in data)
-                    {
-                        for (int i = 0; i < values.Length; i++)
+                        catch
                         {
-                            values[i] = props[i].GetValue(item);
+                            continue;
                         }
-                        obj.Rows.Add(values);
                     }
-                    return obj;
+                    result.Add(obj);
                 }
-                catch (Exception ex)
-                {
-
-                    return null;
-                }
+                return result;
             }
-            public static object[] ConvertObjectToArrayParam<T>(T data) where T : class, new()
+            catch (Exception ex)
             {
-                try
+
+                return null;
+            }
+        }
+        public static DataTable ConvertToDataTable<T>(IList<T> data)
+        {
+            try
+            {
+                var obj = new DataTable();
+                var props = TypeDescriptor.GetProperties(typeof(T));
+                for (int i = 0; i < props.Count; i++)
                 {
-                    var props = TypeDescriptor.GetProperties(typeof(T));
-                    object[] values = new object[props.Count];
-                    for (int i = 0; i < props.Count; i++)
+                    PropertyDescriptor prop = props[i];
+                    obj.Columns.Add(prop.Name, prop.PropertyType);
+                }
+                object[] values = new object[props.Count];
+                foreach (T item in data)
+                {
+                    for (int i = 0; i < values.Length; i++)
                     {
-                        values[i] = props[i].GetValue(data);
+                        values[i] = props[i].GetValue(item);
                     }
-                    return values;
+                    obj.Rows.Add(values);
                 }
-                catch (Exception ex)
-                {
+                return obj;
+            }
+            catch (Exception ex)
+            {
 
-                    return null;
-                }
+                return null;
             }
-            public static int CallProcedure(string connectionString, string procName, params object[] paramsProcs)
+        }
+        public static object[] ConvertObjectToArrayParam<T>(T data) where T : class, new()
+        {
+            try
             {
-                try
+                var props = TypeDescriptor.GetProperties(typeof(T));
+                object[] values = new object[props.Count];
+                for (int i = 0; i < props.Count; i++)
                 {
-                    int res;
-                    if (paramsProcs.IsNull())
-                        res = SqlHelper.ExecuteNonQuery(connectionString, CommandType.StoredProcedure, procName);
-                    else
-                        res = SqlHelper.ExecuteNonQuery(connectionString, procName, paramsProcs);
-                    return res;
+                    values[i] = props[i].GetValue(data);
                 }
-                catch (Exception ex)
-                {
+                return values;
+            }
+            catch (Exception ex)
+            {
 
-                    return -1;
-                }
+                return null;
             }
-            public static int CallCommandExecute(string connectionString, string sqlCommand)
+        }
+        public static int CallProcedure(string connectionString, string procName, params object[] paramsProcs)
+        {
+            try
             {
-                try
-                {
-                    return SqlHelper.ExecuteNonQuery(connectionString, CommandType.Text, sqlCommand);
-                }
-                catch (Exception ex)
-                {
+                int res;
+                if (paramsProcs.IsNull())
+                    res = SqlHelper.ExecuteNonQuery(connectionString, CommandType.StoredProcedure, procName);
+                else
+                    res = SqlHelper.ExecuteNonQuery(connectionString, procName, paramsProcs);
+                return res;
+            }
+            catch (Exception ex)
+            {
 
-                    return -1;
-                }
+                return -1;
             }
-            public static List<string> GetListStringFromProcedure(string connectionString, string procName, params object[] paramsProcs)
+        }
+        public static int CallCommandExecute(string connectionString, string sqlCommand)
+        {
+            try
             {
-                try
-                {
-                    var obj = new List<string>();
-                    var ds = SqlHelper.ExecuteDataset(connectionString, procName, paramsProcs);
-                    foreach (DataRow dr in ds.Tables[0].Rows) obj.Add(dr[0].ToString());
-                    return obj;
-                }
-                catch (Exception ex)
-                {
+                return SqlHelper.ExecuteNonQuery(connectionString, CommandType.Text, sqlCommand);
+            }
+            catch (Exception ex)
+            {
 
-                    return null;
-                }
+                return -1;
             }
-            public static List<string> GetListStringFromCommand(string connectionString, string sqlCommand)
+        }
+        public static List<string> GetListStringFromProcedure(string connectionString, string procName, params object[] paramsProcs)
+        {
+            try
             {
-                try
-                {
-                    var obj = new List<string>();
-                    var ds = SqlHelper.ExecuteDataset(connectionString, CommandType.Text, sqlCommand);
-                    foreach (DataRow dr in ds.Tables[0].Rows) obj.Add(dr[0].ToString());
-                    return obj;
-                }
-                catch (Exception ex)
-                {
+                var obj = new List<string>();
+                var ds = SqlHelper.ExecuteDataset(connectionString, procName, paramsProcs);
+                foreach (DataRow dr in ds.Tables[0].Rows) obj.Add(dr[0].ToString());
+                return obj;
+            }
+            catch (Exception ex)
+            {
 
-                    return null;
-                }
+                return null;
             }
-            public static int GetReturnValueFromProcedure(string connectionString, string procName, params object[] paramsProcs)
+        }
+        public static List<string> GetListStringFromCommand(string connectionString, string sqlCommand)
+        {
+            try
             {
-                try
-                {
-                    int res;
-                    if (paramsProcs.IsNull())
-                        res = (int)SqlHelper.ExecuteScalar(connectionString, CommandType.StoredProcedure, procName);
-                    else
-                        res = (int)SqlHelper.ExecuteScalar(connectionString, procName, paramsProcs);
-                    return res;
-                }
-                catch (Exception ex)
-                {
-                    return 0;
-                }
+                var obj = new List<string>();
+                var ds = SqlHelper.ExecuteDataset(connectionString, CommandType.Text, sqlCommand);
+                foreach (DataRow dr in ds.Tables[0].Rows) obj.Add(dr[0].ToString());
+                return obj;
             }
-            public static string GetReturnValueFromCommand(string connectionString, string sqlCommand)
+            catch (Exception ex)
             {
-                try
-                {
-                    return SqlHelper.ExecuteScalar(connectionString, CommandType.Text, sqlCommand).ToString();
-                }
-                catch (Exception ex)
-                {
-                    return string.Empty;
-                }
+
+                return null;
             }
-            public static long GetNextSequenceValue(string connectionString, string sequenceName)
+        }
+        public static int GetReturnValueFromProcedure(string connectionString, string procName, params object[] paramsProcs)
+        {
+            try
             {
-                try
-                {
-                    string command = "SELECT NEXT VALUE FOR " + sequenceName;
-                    var rs = SqlHelper.ExecuteScalar(connectionString, CommandType.Text, command);
-                    long nextVal = Convert.ToInt64(rs);
-                    return nextVal;
-                }
-                catch (Exception ex)
-                {
-                    return 0;
-                }
+                int res;
+                if (paramsProcs.IsNull())
+                    res = (int)SqlHelper.ExecuteScalar(connectionString, CommandType.StoredProcedure, procName);
+                else
+                    res = (int)SqlHelper.ExecuteScalar(connectionString, procName, paramsProcs);
+                return res;
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+        public static string GetReturnValueFromCommand(string connectionString, string sqlCommand)
+        {
+            try
+            {
+                return SqlHelper.ExecuteScalar(connectionString, CommandType.Text, sqlCommand).ToString();
+            }
+            catch (Exception ex)
+            {
+                return string.Empty;
+            }
+        }
+        public static long GetNextSequenceValue(string connectionString, string sequenceName)
+        {
+            try
+            {
+                string command = "SELECT NEXT VALUE FOR " + sequenceName;
+                var rs = SqlHelper.ExecuteScalar(connectionString, CommandType.Text, command);
+                long nextVal = Convert.ToInt64(rs);
+                return nextVal;
+            }
+            catch (Exception ex)
+            {
+                return 0;
             }
         }
     }
 }
+

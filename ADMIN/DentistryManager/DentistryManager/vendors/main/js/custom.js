@@ -2413,19 +2413,28 @@ function init_calendar() {
             ended = end;
 
             $(".antosubmit").on("click", function () {
-                var title = $("#title").val();
-                if (end) {
-                    ended = end;
-                }
+                //var title = $("#title").val();
+                var patient = $("#autocomplete-custom-append").val();
+                var content = $("#content").val();
+                var title = patient.concat(content);
+                //if (end) {
+                //    ended = end;
+                //}
 
-                categoryClass = $("#event_type").val();
+                //categoryClass = $("#event_type").val();
+                var start = $("#startdate").val();
+                var end = $("#enddate").val();
 
                 if (title) {
                     calendar.fullCalendar('renderEvent', {
+                        //title: title,
+                        //start: started,
+                        //end: end,
+                        //allDay: allDay
                         title: title,
-                        start: started,
+                        start: start,
                         end: end,
-                        allDay: allDay
+                        allDay: false
                     },
                       true // make the event "stick"
                     );
