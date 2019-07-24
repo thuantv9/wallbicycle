@@ -11,6 +11,6 @@ namespace DentistryManager.Controllers
         public ActionResult Index()
         {
             return View();
-        }     
+        }
     }
 }

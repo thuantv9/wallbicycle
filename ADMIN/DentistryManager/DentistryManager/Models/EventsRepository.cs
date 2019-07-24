@@ -108,9 +108,30 @@ namespace DentistryManager.Models
 
         public int Add(Events entity)
         {
-            int res = SqlHelper.ExecuteNonQuery(Const.Connectring, "InsertEvents", entity);
-            return res;
-            throw new NotImplementedException();
+            //int res = SqlHelper.ExecuteNonQuery(Const.Connectring, "InsertEvents", entity);
+            //return res;
+            //throw new NotImplementedException();
+            int i;
+            using (SqlConnection con = new SqlConnection(Const.Connectring))
+            {
+                con.Open();
+                SqlCommand cmd = new SqlCommand("InsertEvents", con);
+                cmd.CommandType = CommandType.StoredProcedure;
+                //cmd.Parameters.AddWithValue("@id", entity.id);
+                cmd.Parameters.AddWithValue("@title", entity.title);
+                cmd.Parameters.AddWithValue("@start", entity.start);
+                if (entity.end != null)
+                    cmd.Parameters.AddWithValue("@end", entity.end);
+                else
+                    cmd.Parameters.AddWithValue("@end", DBNull.Value);
+                if (entity.url.IsNotNull())
+                    cmd.Parameters.AddWithValue("@url", entity.url);
+                else
+                    cmd.Parameters.AddWithValue("@url", DBNull.Value);                
+                cmd.Parameters.AddWithValue("@allDay", entity.allDay);
+                i = cmd.ExecuteNonQuery();
+            }
+            return i;
         }
 
         public int Delete(Events entity)

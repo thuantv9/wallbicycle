@@ -11,10 +11,11 @@
     <div class="title_right">
         <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Tìm kiếm cho...">
+                @*<input type="text" class="form-control" placeholder="Tìm kiếm cho...">
                 <span class="input-group-btn">
                     <button class="btn btn-default" type="button">Search!</button>
-                </span>
+                </span>*@
+                <input type="text" class="form-control" id="search_event" placeholder="Tìm kiếm cho...">
             </div>
         </div>
     </div>
@@ -32,7 +33,7 @@
                             <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>*@
                     <li>
-                        <button type="button" class="btn btn-primary"><i class="fa fa-edit"></i> Thêm lịch hẹn</button>
+                        <button onclick="OpenModalNewEvents()" type="button" class="btn btn-primary"><i class="fa fa-edit"></i> Thêm lịch hẹn</button>
                     </li>
                 </ul>
 
@@ -56,21 +57,18 @@
                 </div>
                 <div class="modal-body">
                     <div id="testmodal" style="padding: 5px 20px;">
-                        <form id="antoform" class="form-horizontal calender" role="form">
+                        <form id="antoform" class="form-horizontal calender" role="form" data-parsley-validate>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Nội dung</label>
+                                <label class="col-sm-3 control-label" for="content">Nội dung * :</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" id="content" name="content">
+                                    <input type="text" class="form-control" id="content" name="content" required="required"  data-required-message="Please insert your name">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Bệnh nhân</label>
-                                @*<div class="col-sm-9">
-                                        <textarea class="form-control" style="height:55px;" id="patient" name="patient"></textarea>
-                                    </div>*@
+                                <label class="col-sm-3 control-label" for="patient">Bệnh nhân * :</label>                               
                                 <div class="col-sm-9">
                                     <div class="input-group">
-                                        <input type="text" name="patient" id="autocomplete-custom-append" class="form-control col-md-10" />
+                                        <input type="text" name="patient" id="autocomplete-custom-append" class="form-control col-md-10" required />
                                         <span class="input-group-btn">
                                             <button type="button" class="btn btn-primary"><i class="fa fa-plus"></i></button>
                                         </span>
@@ -78,10 +76,10 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Thời gian bắt đầu *</label>
+                                <label class="col-sm-3 control-label">Thời gian * :</label>
                                 <div class="col-sm-9">
                                     <div class='input-group date' id='datetimepicker_start'>
-                                        <input type='text' class="form-control" id="startdate"/>
+                                        <input type='text' class="form-control" id="startdate" required />
                                         <span class="input-group-addon">
                                             <span class="glyphicon glyphicon-calendar"></span>
                                         </span>
@@ -89,7 +87,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label">Kết thúc lúc</label>
+                                <label class="col-sm-3 control-label">Kết thúc lúc :</label>
                                 <div class="col-sm-9">
                                     <div class='input-group date' id='datetimepicker_end'>
                                         <input type='text' class="form-control" id="enddate" />
@@ -103,8 +101,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default antoclose" data-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-primary antosubmit">Lưu</button>
+                    <button type="button" onclick="CloseNewEvents()" class="btn btn-default antoclose" data-dismiss="modal">Đóng</button>
+                    <button type="button" onclick="AddNewEvents()" class="btn btn-primary antosubmit">Lưu</button>
                 </div>
             </div>
         </div>
@@ -193,7 +191,8 @@
     <script>
 
         $('#datetimepicker_start').datetimepicker({
-            useCurrent: false
+            useCurrent: false,
+            format: 'DD/MM/YYYY hh:mm:ss a'
         });
         $('#datetimepicker_end').datetimepicker({
             useCurrent: true

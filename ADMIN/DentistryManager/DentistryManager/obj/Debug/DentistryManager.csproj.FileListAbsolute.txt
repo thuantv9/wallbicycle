@@ -105,6 +105,6 @@ E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\Micr
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\Microsoft.Owin.Security.Google.xml
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\Microsoft.Owin.Security.Twitter.xml
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\obj\Debug\DentistryManager.csprojResolveAssemblyReference.cache
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\obj\Debug\DentistryManager.dll
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\obj\Debug\DentistryManager.pdb
+E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\obj\Debug\DentistryManager.csprojResolveAssemblyReference.cache
