@@ -108,3 +108,5 @@ E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\Micr
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\obj\Debug\DentistryManager.dll
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\obj\Debug\DentistryManager.pdb
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\obj\Debug\DentistryManager.csprojResolveAssemblyReference.cache
+E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\log4net.dll
+E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\log4net.xml

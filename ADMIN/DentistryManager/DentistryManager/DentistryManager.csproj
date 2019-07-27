@@ -4608,7 +4608,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Patient\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Patient\QueuePatient.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

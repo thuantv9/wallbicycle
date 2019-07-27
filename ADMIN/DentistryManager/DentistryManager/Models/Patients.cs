@@ -17,7 +17,11 @@ namespace DentistryManager.Models
         public int age { get; set; }
         public string email { get; set; }
         public string metadata { get; set; }
-        public bool status { get; set; }
+        public string status { get; set; }
+
+        public string statusinaday { get; set; }
+
+        public bool active { get; set; }
     }
 
     public class MetaData

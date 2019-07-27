@@ -32,7 +32,9 @@ namespace DentistryManager.Repository
                     obj.age = SafeConvert.ToInt(reader["age"]);
                     obj.email = SafeConvert.ToString(reader["email"]);
                     obj.metadata = SafeConvert.ToString(reader["metadata"]);
-                    obj.status = SafeConvert.ToBoolean(reader["status"]);
+                    obj.status = SafeConvert.ToString(reader["status"]);
+                    obj.statusinaday = SafeConvert.ToString(reader["statusinaday"]);
+                    obj.active = SafeConvert.ToBoolean(reader["active"]);
                 };
                 con.Close();
                 return obj;
@@ -64,7 +66,9 @@ namespace DentistryManager.Repository
                         obj.age = SafeConvert.ToInt(reader["age"]);
                         obj.email = SafeConvert.ToString(reader["email"]);
                         obj.metadata = SafeConvert.ToString(reader["metadata"]);
-                        obj.status = SafeConvert.ToBoolean(reader["status"]);
+                        obj.status = SafeConvert.ToString(reader["status"]);
+                        obj.statusinaday = SafeConvert.ToString(reader["statusinaday"]);
+                        obj.active = SafeConvert.ToBoolean(reader["active"]);
                         lstPatients.Add(obj);
                     }
                     return lstPatients.AsEnumerable();
@@ -101,7 +105,9 @@ namespace DentistryManager.Repository
                         obj.age = SafeConvert.ToInt(reader["age"]);
                         obj.email = SafeConvert.ToString(reader["email"]);
                         obj.metadata = SafeConvert.ToString(reader["metadata"]);
-                        obj.status = SafeConvert.ToBoolean(reader["status"]);
+                        obj.status = SafeConvert.ToString(reader["status"]);
+                        obj.statusinaday = SafeConvert.ToString(reader["statusinaday"]);
+                        obj.active = SafeConvert.ToBoolean(reader["active"]);
                         lstPatients.Add(obj);
                     }
                     return lstPatients.AsEnumerable().Where(predicate);
@@ -161,7 +167,17 @@ namespace DentistryManager.Repository
                     else
                         cmd.Parameters.AddWithValue("@metadata", DBNull.Value);
 
-                    cmd.Parameters.AddWithValue("@status", entity.status);
+                    if (entity.status.IsNotNull())
+                        cmd.Parameters.AddWithValue("@status", entity.status);
+                    else
+                        cmd.Parameters.AddWithValue("@status", DBNull.Value);
+
+                    if (entity.statusinaday.IsNotNull())
+                        cmd.Parameters.AddWithValue("@statusinaday", entity.statusinaday);
+                    else
+                        cmd.Parameters.AddWithValue("@statusinaday", DBNull.Value);
+
+                    cmd.Parameters.AddWithValue("@active", entity.active);
 
                     i = cmd.ExecuteNonQuery();
                 }

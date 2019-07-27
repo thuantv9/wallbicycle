@@ -77,7 +77,9 @@ Create table Patients (
 	[age] int,	
 	[email] varchar(200),
 	[metadata] ntext,
-	[status] bit
+	[status] nvarchar(300),
+	[statusinaday] nvarchar(300),
+	[active] bit
 )
 go
 -- Create sequence patient
@@ -119,10 +121,12 @@ create procedure dbo.InsertPatients
 	@age int,	
 	@email varchar(200),
 	@metadata ntext,
-	@status bit
+	@status nvarchar(300),
+	@statusinaday nvarchar(300),
+	@active bit
 as
 begin
-	 insert into Patients(name,birthday,address,image,gender, telephone, age, email, metadata,status) values (@name,@birthday,@address,@image,@gender, @telephone, @age, @email, @metadata,@status); 
+	 insert into Patients(name,birthday,address,image,gender, telephone, age, email, metadata,status,statusinaday,active) values (@name,@birthday,@address,@image,@gender, @telephone, @age, @email, @metadata,@status,@statusinaday,@active); 
 	end
 go
 -- Update Patients
@@ -141,7 +145,9 @@ create procedure dbo.UpdatePatients
 	@age int,	
 	@email varchar(200),
 	@metadata ntext,
-	@status bit
+	@status nvarchar(300),
+	@statusinaday nvarchar(300),
+	@active bit
 as
 begin
 	 update Patients 
@@ -155,7 +161,9 @@ begin
 			age=ISNULL(@age,age),
 			email=ISNULL(@email,email),
 			metadata=ISNULL(@metadata,metadata),
-			status= ISNULL(@status,status)
+			status= ISNULL(@status,status),
+			statusinaday = ISNULL(@statusinaday,statusinaday),,
+			active = ISNULL(@active,active)
 		where id=@id	
 end
 go
@@ -169,7 +177,7 @@ CREATE PROCEDURE dbo.PatientsDelete
 AS
 BEGIN
 	UPDATE Patients
-	SET status = 0
+	SET active = 0
 	WHERE id = @id;
 END
 GO
@@ -201,7 +209,7 @@ Create table MedicalProcedure (
 	[category] varchar(200) null,
 	[numberoftreatment] int
 )
-
+go
 
 -- Danh sách cảnh báo sử dụng thuốc - Medical Alerts
 IF  EXISTS (SELECT * FROM sys.objects 
@@ -215,10 +223,11 @@ Create table MedicalAlert (
 	[name] nvarchar(500),
 	[description] varchar(50)
 )
+go
 
 -- Danh sách tiền sử bệnh - Medical History
 IF  EXISTS (SELECT * FROM sys.objects 
-WHERE object_id = OBJECT_ID(N'[dbo].[MedicalHistory') AND type in (N'U'))
+WHERE object_id = OBJECT_ID(N'[dbo].[MedicalHistory]') AND type in (N'U'))
 begin	
 	drop table MedicalHistory
 end
@@ -228,4 +237,20 @@ Create table MedicalHistory (
 	[name] nvarchar(500),
 	[description] varchar(50)
 )
+go
+-- All Data Json
+IF  EXISTS (SELECT * FROM sys.objects 
+WHERE object_id = OBJECT_ID(N'[dbo].[AllDataJson]') AND type in (N'U'))
+begin	
+	drop table AllDataJson
+end
+go
+Create table AllDataJson (
+	[key] nvarchar(200) ,
+	[value] ntext
+	)
+go
+-- Insert data for AllDataJson
+insert into AllDataJson([key],value) values(N'PatientStatus',N'[{"id":"0","value":"Mới"},{"id":"1","value":"Đang điều trị"},{"id":"2","value":"Đã điều trị xong"}]')
+insert into AllDataJson([key],value) values(N'PatientStatusInADay',N'[{"id":"0","value":"Chờ khám"},{"id":"1","value":"Chờ điều trị"},{"id":"2","value":"Chờ thanh toán"},{"id":"3","value":"Không khám"},{"id":"4","value":"Đã hoàn thành"}]')
 

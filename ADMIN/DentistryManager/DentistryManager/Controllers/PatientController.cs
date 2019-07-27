@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DentistryManager.Repository;
+using DentistryManager.Models;
 
 namespace DentistryManager.Controllers
 {
@@ -17,7 +18,10 @@ namespace DentistryManager.Controllers
 
         public ActionResult QueuePatient()
         {
-            return View();
+            IEnumerable<Patients> patients;
+            Func<Patients, bool> func = it => it.status == string.Empty;
+            patients = patientrepository.List(func);
+            return View(patients);
         }
     }
 }
