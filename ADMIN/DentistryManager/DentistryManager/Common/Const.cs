@@ -19,7 +19,10 @@ namespace DentistryManager.Common
         public const string FSP_PATIENT_INSERT = "InsertPatients";
         public const string FSP_PATIENT_DELETE = "PatientsDelete";
         public const string FSP_PATIENT_UPDATE = "UpdatePatients";
+        public const string FSP_PATIENT_UPDATESTATUSINDAY = "UpdateStatusInADayPatients";
 
+        public const string Patient_Waiting = "Chờ khám";
+        public const string Patient_Examining = "Đang khám";
         // Events
 
     }

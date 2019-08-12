@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using DentistryManager.Models;
 using DentistryManager.Repository;
+using DentistryManager.Common;
 
 namespace DentistryManager.Controllers
 {
@@ -45,9 +46,26 @@ namespace DentistryManager.Controllers
             return Json(patientsrepository.Edit(entity), JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult UpdateStatusInADayPatients(string id, string statusinaday)
+        {
+            return Json(patientsrepository.Edit_StatusInADay(id, statusinaday), JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult DeletePatient(Patients entity)
         {
             return Json(patientsrepository.Delete(entity), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetPatient_Queue()
+        {
+            Func<Patients, bool> func = it => it.statusinaday == Const.Patient_Waiting;
+            return Json(patientsrepository.List(func), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetPatient_Exammining()
+        {
+            Func<Patients, bool> func = it => it.statusinaday == Const.Patient_Examining;
+            return Json(patientsrepository.List(func), JsonRequestBehavior.AllowGet);
         }
     }
 }

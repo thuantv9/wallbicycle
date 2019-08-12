@@ -937,28 +937,25 @@ function init_autocomplete() {
     { value: 'Zimbabwe', data: 'ZZ' }
     ];
 
-    $.getJSON('Base/GetAllEvents', function (data1) {        
+    $.getJSON('Base/GetAllEvents', function (data1) {
         var arr = [];
-        for(var k in data1)
-        {
+        for (var k in data1) {
             console.log(k, data1[k].id);
             arr.push({ value: data1[k].title.concat(data1[k].id), data: data1[k].id });
         }
-        $('#search_event').autocomplete({           
+        $('#search_event').autocomplete({
             lookup: arr,
             onSelect: function (suggestion) {
-                for (var k in data1)
-                {
-                    if(data1[k].id == suggestion.data)
-                    {
+                for (var k in data1) {
+                    if (data1[k].id == suggestion.data) {
                         //var noTime = $.fullCalendar.moment('2014-04-07');
                         var noTime = $.fullCalendar.moment(data1[k].start);
                         $('#calendar').fullCalendar('gotoDate', noTime);
                     }
-                }               
+                }
             }
         });
-    });   
+    });
     // initialize autocomplete with custom appendTo
     $('#autocomplete-custom-append').autocomplete({
         lookup: countriesArray
@@ -966,14 +963,14 @@ function init_autocomplete() {
 
     // intialize autocomplete search events
     //$('#search_event').autocomplete({
-        //serviceUrl: 'Base/GetAllEvents',
-        //type: 'GET',
-        //dataType: 'json',
-        //lookup:countriesArray,
-        //onSelect: function (suggestion) {
-        //    alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
-        //}
-        //lookup: jsondataarr
+    //serviceUrl: 'Base/GetAllEvents',
+    //type: 'GET',
+    //dataType: 'json',
+    //lookup:countriesArray,
+    //onSelect: function (suggestion) {
+    //    alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+    //}
+    //lookup: jsondataarr
     //});
 
 };
@@ -5192,8 +5189,23 @@ function init_echarts() {
                 }]
             }]
         });
-
     }
+}
+
+function GetQueuePatient() {
+    $.ajax({
+        url: "/Base/GetPatient_Queue",
+        type: "GET",
+        contentType: "application/json;charset=utf-8",
+        datatype: "json",
+        success: function (key, value) {
+            console.log(value.name);           
+        },
+        error: function (errormessage) {
+            console.log(errormessage.responseText);
+        }
+    });
+
 
 }
 

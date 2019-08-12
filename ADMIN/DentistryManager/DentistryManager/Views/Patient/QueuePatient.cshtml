@@ -1,4 +1,5 @@
 ﻿@using Newtonsoft.Json;
+@using DentistryManager.Common
 @model IEnumerable<DentistryManager.Models.Patients>
 @{
     ViewBag.Title = "QueuePatient";
@@ -7,23 +8,23 @@
 
 <!-- page content -->
 @*<div class="page-title">
-    <div class="title_left">
-        <h3>BỆNH NHÂN</h3>
-    </div>
+        <div class="title_left">
+            <h3>BỆNH NHÂN</h3>
+        </div>
 
-    <div class="title_right">
-        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Tìm kiếm!</button>
-                </span>
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Tìm kiếm!</button>
+                    </span>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="clearfix"></div>*@
+    <div class="clearfix"></div>*@
 
 <div class="row">
     @*<div class="col-md-12 col-sm-12 col-xs-12">*@
@@ -31,39 +32,127 @@
     <div class="col-md-9 col-sm-9 col-xs-9">
         <div class="x_panel">
             <div class="x_title">
-                <h2>HỒ SƠ KHÁM ĐIỀU TRỊ</h2>               
-                <div class="clearfix"></div>
-            </div>
-            <div class="x_content">             
-                
-                <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6"><h4>HỒ SƠ KHÁM ĐIỀU TRỊ</h4></div>
 
+                    <div class="col-md-6">
+                        <input type="button" class="btn btn-warning pull-right" data-toggle="modal" data-target="#modal_addpatient" value="Thêm bệnh nhân" />
+                    </div>
+                </div>
+                @*<input type="text" class="form-control" placeholder="Search for...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Tìm kiếm!</button>
+                    </span>*@
+            </div>
+            <div class="clearfix"></div>
+            <div class="x_content">
+                <div class="col-md-12">
                     <div class="" role="tabpanel" data-example-id="togglable-tabs">
                         <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                             <li role="presentation" class="active">
                                 <a href="#tab_commoninfo" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Thông tin chung</a>
                             </li>
                             <li role="presentation" class="">
-                                <a href="#tab_examination" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Khám</a>
-                            </li>
+                                <a href="#tab_examandtreatment" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Khám và điều trị</a>
+                            </li>                           
                             <li role="presentation" class="">
-                                <a href="#tab_treatment" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Điều trị</a>
+                                <a href="#tab_payment" role="tab" id="profile-tab3" data-toggle="tab" aria-expanded="false">Thanh toán</a>
                             </li>
                         </ul>
                         <div id="myTabContent" class="tab-content">
                             <div role="tabpanel" class="tab-pane fade active in" id="tab_commoninfo" aria-labelledby="home-tab">
-                                <p>
-                                    Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
-                                    synth. Cosby sweater eu banh mi, qui irure terr.
-                                </p>
+                                <div class="row">
+                                    <div class="col-md-6 col-xs-12">
+                                        <div class="x_title"><span class="text-danger text-uppercase"> Thông tin cá nhân</span></div>
+                                        <p>Mã bệnh nhân    <span class="text-danger" id="exammining_idpatient"> BN001</span></p>
+                                        <p>Bệnh nhân       <span class="text-danger" id="exammining_namepatient">Trần Văn Thuấn</span> </p>
+                                        <p>Địa chỉ  <span class="text-danger" id="exammining_addresspatient">Hà Nội</span></p>
+                                        <p>Tuổi <span class="text-danger" id="exammining_agepatient">29</span></p>
+                                        <p>Giới tính <span class="text-danger" id="exammining_genderpatient">Nam</span></p>
+                                        <p>Điện thoại <span class="text-danger" id="exammining_telephonepatient">0918.2012</span></p>
+                                    </div>
+                                    <div class="col-md-6 col-xs-12">
+                                        <div class="x_title"><span class="text-danger text-uppercase"> Tiền sử bệnh</span></div>
+                                        <div class="x_content">
+                                            <p class="text-danger tags" id="queue_medicalhistory">
+                                                <span class="tag">Đau dạ dày</span>
+                                                <span class="tag">Đau đầu</span>
+                                                <span class="tag">Đau dạ dày</span>
+                                                <span class="tag">Đau đầu</span>
+                                                <span class="tag">Đau dạ dày</span>
+                                                <span class="tag">Đau đầu</span>
+                                            </p>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                        <div class="x_title"><span class="text-danger text-uppercase"> Cảnh báo sử dụng thuốc</span></div>
+                                        <div class="x_content">
+                                            <p class="text-danger tags" id="queue_medicalalert">
+                                                <span class="tag">Aspirin</span>
+                                                <span class="tag">Penexilin</span>
+                                                <span class="tag">Aspirin</span>
+                                                <span class="tag">Penexilin</span>
+                                                <span class="tag">Aspirin</span>
+                                                <span class="tag">Aspirin</span>
+                                                <span class="tag">Penexilin</span>
+                                                <span class="tag">Penexilin</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab_examination" aria-labelledby="profile-tab">
-                                <p>
-                                    Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo
-                                    booth letterpress, commodo enim craft beer mlkshk aliquip
-                                </p>
+                            <div role="tabpanel" class="tab-pane fade" id="tab_examandtreatment" aria-labelledby="profile-tab">
+                                <div class="row">
+                                    <div class="col-md-6 col-xs-6">
+                                        <form class="form-horizontal form-label-left">
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Ngày tháng: </label>
+                                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                                    <input type="text" class="form-control" placeholder="08/08/2019">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Chẩn đoán: </label>
+                                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                                    <select class="js-example-basic-multiple" name="states[]" multiple="multiple">
+                                                        <option value="AL">Alabama</option>
+                                                        <option value="WY">Wyoming</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                                    Chẩn đoán khác
+                                                </label>
+                                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                                    <textarea class="form-control" rows="3" placeholder="Chẩn đoán khác"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Ghi chú</label>
+                                                <div class="col-md-9 col-sm-9 col-xs-12">
+                                                    <textarea id="message" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.."
+                                                              data-parsley-validation-threshold="10">
+                                                    </textarea>
+                                                </div>
+                                            </div>
+
+                                            <div class="ln_solid"></div>
+                                            <div class="form-group">
+                                                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                                    <button type="button" class="btn btn-primary">Cancel</button>
+                                                    <button type="reset" class="btn btn-primary">Reset</button>
+                                                    <button type="submit" class="btn btn-success">Submit</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-md-6 col-xs-6">
+
+                                    </div>
+                                </div>
                             </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab_treatment" aria-labelledby="profile-tab">
+                            <div role="tabpanel" class="tab-pane fade" id="tab_payment" aria-labelledby="profile-tab3">
                                 <p>
                                     xxFood truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui
                                     photo booth letterpress, commodo enim craft beer mlkshk
@@ -79,51 +168,399 @@
 
     @* Sidebar - Danh sach benh nhan dang cho kham *@
     <div class="col-md-3 col-sm-3 col-xs-3">
-        <div>
-            <div class="x_title">
-                <h2>Bệnh nhân chờ khám</h2>
-                <div class="clearfix"></div>
-            </div>
-            <ul class="list-unstyled top_profiles scroll-view">
-                @*Exam**@
-                <li class="media event">
-                    <a class="pull-left border-aero profile_thumb">
-                        <i class="fa fa-user blue"></i>
-                    </a>
-                    <div class="media-body">
-                        <a class="title" href="#">Ms. Mary Jane</a>
-                        <p><strong>$2300. </strong> Agent Avarage Sales </p>
-                        <p>
-                            <small>12 Sales Today</small>
-                        </p>
-                    </div>
-                </li>
-                @* End Exam**@
-                @if (Model != null)
-                {
-                    foreach (var patient in Model)
-                    {
-                        <li class="media event">
-                            <a class="pull-left border-green profile_thumb">
-                                <i class="fa fa-user blue"></i>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_title">
+                    <h2>Bệnh nhân đang khám</h2>
+                    <div class="clearfix"></div>
+                </div>
+                @*<ul class="list-unstyled top_profiles scroll-view pre-scrollable" id="examiningpatient">*@
+                <ul class="list-unstyled scroll-view" id="examminingpatient">
+                    @*Exam**@
+                    @*<li class="media event">
+                            <a class="pull-left border-aero profile_thumb">
+                                <i class="fa fa-user red"></i>
                             </a>
                             <div class="media-body">
-                                <a class="title" href="#">@patient.name</a>
+                                <a class="title" href="#">Ms. Mary Jane</a>
                                 <p><strong>$2300. </strong> Agent Avarage Sales </p>
                                 <p>
                                     <small>12 Sales Today</small>
                                 </p>
                             </div>
-                        </li>
-                    }
-                }
-                else
-                {
+                        </li>*@
+                </ul>
+            </div>
+            <div class=" col-xs-offset-2 col-md-10 col-sm-10 col-xs-10">
+                <button type="button" class="btn btn-danger center-margin">Lấy bệnh nhân tiếp theo</button>
+            </div>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_title">
+                    <h2>Bệnh nhân chờ khám</h2>
+                    <div class="clearfix"></div>
+                </div>
+                <ul class="list-unstyled top_profiles scroll-view pre-scrollable" id="queuepatient">
+                    @*Exam**@
+                    <li class="media event">
+                        <a class="pull-left border-aero profile_thumb">
+                            <i class="fa fa-user blue"></i>
+                        </a>
+                        <div class="media-body">
+                            <a class="title" href="#">Ms. Mary Jane</a>
+                            <p><strong>$2300. </strong> Agent Avarage Sales </p>
+                            <p>
+                                <small>12 Sales Today</small>
+                            </p>
+                        </div>
+                    </li>
+                    @* End Exam**@
+                    @*Exam**@
+                    <li class="media event">
+                        <a class="pull-left border-aero profile_thumb">
+                            <i class="fa fa-user blue"></i>
+                        </a>
+                        <div class="media-body">
+                            <a class="title" href="#">Ms. Mary Jane</a>
+                            <p><strong>$2300. </strong> Agent Avarage Sales </p>
+                            <p>
+                                <small>12 Sales Today</small>
+                            </p>
+                        </div>
+                    </li>
+                    @* End Exam**@
+                    @*Exam**@
+                    <li class="media event">
+                        <a class="pull-left border-aero profile_thumb">
+                            <i class="fa fa-user blue"></i>
+                        </a>
+                        <div class="media-body">
+                            <a class="title" href="#">Ms. Mary Jane</a>
+                            <p><strong>$2300. </strong> Agent Avarage Sales </p>
+                            <p>
+                                <small>12 Sales Today</small>
+                            </p>
+                        </div>
+                    </li>
 
-                }
-            </ul>
+                    @* End Exam**@
+                    @*Exam**@
+                    <li class="media event">
+                        <a class="pull-left border-aero profile_thumb">
+                            <i class="fa fa-user blue"></i>
+                        </a>
+                        <div class="media-body">
+                            <a class="title" href="#">Ms. Mary Jane</a>
+                            <p><strong>$2300. </strong> Agent Avarage Sales </p>
+                            <p>
+                                <small>12 Sales Today</small>
+                            </p>
+                        </div>
+                    </li>
+                    @* End Exam**@
+                    @*Exam**@
+                    <li class="media event">
+                        <a class="pull-left border-aero profile_thumb">
+                            <i class="fa fa-user blue"></i>
+                        </a>
+                        <div class="media-body">
+                            <a class="title" href="#">Ms. Mary Jane</a>
+                            <p><strong>$2300. </strong> Agent Avarage Sales </p>
+                            <p>
+                                <small>12 Sales Today</small>
+                            </p>
+                        </div>
+                    </li>
+                    @* End Exam**@
+                    @*Exam**@
+                    <li class="media event">
+                        <a class="pull-left border-aero profile_thumb">
+                            <i class="fa fa-user blue"></i>
+                        </a>
+                        <div class="media-body">
+                            <a class="title" href="#">Ms. Mary Jane</a>
+                            <p><strong>$2300. </strong> Agent Avarage Sales </p>
+                            <p>
+                                <small>12 Sales Today</small>
+                            </p>
+                        </div>
+                    </li>
+                    @* End Exam**@
+                    @*Exam**@
+                    <li class="media event">
+                        <a class="pull-left border-aero profile_thumb">
+                            <i class="fa fa-user blue"></i>
+                        </a>
+                        <div class="media-body">
+                            <a class="title" href="#">Ms. Mary Jane</a>
+                            <p><strong>$2300. </strong> Agent Avarage Sales </p>
+                            <p>
+                                <small>12 Sales Today</small>
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     @* End Sidebar**@
 </div>
 <!-- /page content -->
+<!-- Modal Inset Patient-->
+<div id="modal_addpatient" class="modal fade" role="dialog" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Thêm bệnh nhân khám</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal form-label-left">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Họ tên</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="name" class="form-control" placeholder="Họ tên">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Năm sinh</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="number" id="birthday" class="form-control" placeholder="2019">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Địa chỉ</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" class="form-control" placeholder="Tp. Thái Bình">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">
+                                Giới tính <span class="required">*</span>
+                            </label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <select class="form-control">
+                                    <option>Nam</option>
+                                    <option>Nữ</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Điện thoại</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="number" min="0" max="9" maxlength="12" class="form-control" value="000000000000">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Email</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                                <input type="text" id="email" class="form-control col-md-10" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <fieldset>
+                            <legend>Tiền sử bệnh:</legend>
+                        </fieldset>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-5">
+                            <button class="btn btn-primary" type="button">Cancel</button>
+                            <button class="btn btn-primary" type="reset">Reset</button>
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+@section QueuePatient{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            GetPatient_Queue();
+            GetPatient_Exammining();
+            ContextMenu_QueuePatient();
+            LoadDataForSelectMedicalExam();
+        });
+
+        function ContextMenu_QueuePatient() {
+            $('#queuepatient').contextMenu({
+                selector: 'li',
+                callback: function (key, options) {
+                    if (key === 'treatment') {
+                        var id = $(this).find($("#patientid")).text();
+                        var name = $(this).find($("#patientname")).text();
+                        var address = $(this).find($("#patientaddress")).text();
+                        var age = $(this).find($("#patientage")).text();
+                        var gender = $(this).find($("#patientgender")).text();
+                        var telephone = $(this).find($("#patienttelephone")).text();
+                        var medicalhistory = $(this).find($("#patientmedicalhistory")).text();
+                        var medicalalert = $(this).find($("#patientmedicalalert")).text();
+
+                        UpdateStatusInADay(id, 'Đang khám', name, address, age, gender, telephone, medicalhistory, medicalalert);
+                    }
+                },
+                items:
+                    {
+                        "treatment": { name: "Khám và điều trị", icon: "fa-medkit" },
+                        "payment": { name: "Thanh toán", icon: "fa-credit-card" }
+                    }
+            });
+        }
+
+        function UpdateStatusInADay(id, statusinaday, name, address, age, gender, telephone, medicalhistory, medicalalert) {
+            $.ajax({
+                url: "/Base/UpdateStatusInADayPatients",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                data: { id: id, statusinaday: statusinaday },
+                success: function (response) {
+                    if (response == -1) {
+                        alert("Hiện tại có 1 bệnh nhân đang khám");
+                        console.log(response);
+                    }
+                    else {
+                        GetInformation_ExamminingPatient(id, name, address, age, gender, telephone, medicalhistory, medicalalert);
+                        GetPatient_Queue();
+                        GetPatient_Exammining();
+                    }
+                },
+                error: function (errormessage) {
+                    console.log(errormessage.responseText);
+                }
+            });
+        }
+
+        function GetInformation_ExamminingPatient(id, name, address, age, gender, telephone, medicalhistory, medicalalert) {
+            //$('#exammining_idpatient').html($(this).find($("#patientid")).text());
+            //$('#exammining_namepatient').html($(this).find($("#patientname")).text());
+            //$('#exammining_addresspatient').html($(this).find($("#patientaddress")).text());
+            //$('#exammining_agepatient').html($(this).find($("#patientage")).text());
+            //$('#exammining_genderpatient').html($(this).find($("#patientgender")).text());
+            //$('#exammining_telephonepatient').html($(this).find($("#patienttelephone")).text());
+            $('#exammining_idpatient').html(id);
+            $('#exammining_namepatient').html(name);
+            $('#exammining_addresspatient').html(address);
+            $('#exammining_agepatient').html(age);
+            $('#exammining_genderpatient').html(gender);
+            $('#exammining_telephonepatient').html(telephone);
+            //var medicalhistory = $(this).find($("#patientmedicalhistory")).text();
+            if (medicalhistory.includes("|")) {
+                var arr_medicalhistory = medicalhistory.split('|');
+                var html = '';
+                arr_medicalhistory.forEach(function (item, index) {
+                    html += '<span class="tag">' + item + '</span>';
+                });
+                $('#queue_medicalhistory').html(html);
+            }
+            else {
+                $('#queue_medicalhistory').html('');
+            }
+
+            //var medicalalert = $(this).find($("#patientmedicalalert")).text();
+            if (medicalalert.includes("|")) {
+                var arr_medicalalert = medicalalert.split('|');
+                var html2 = '';
+                arr_medicalhistory.forEach(function (item, index) {
+                    html2 += '<span class="tag">' + item + '</span>';
+                });
+                $('#queue_medicalalert').html(html2);
+            }
+            else {
+                $('#queue_medicalalert').html('');
+            }
+        }
+
+        function GetPatient_Queue() {
+            $.ajax({
+                url: "/Base/GetPatient_Queue",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                datatype: "json",
+                success: function (data) {
+                    var html = '';
+                    $.each(data, function (key, value) {
+                        var gender;
+                        if (value.gender === false) gender = 'Nam';
+                        else gender = 'Nữ'
+                        html += ' <li class="media event">'
+                            + '<a class="pull-left border-green profile_thumb"><i class="fa fa-user blue"></i></a>'
+                            + '<div class="media-body">'
+                                + '<p class="hidden" id="patientid">' + value.id + '</p>'
+                                + '<p class="hidden" id="patientaddress">' + value.address + '</p>'
+                                + '<p class="hidden" id="patienttelephone">' + value.telephone + '</p>'
+                                + '<p class="hidden" id="patientgender">' + gender + '</p>'
+                                + '<p class="hidden" id="patientmedicalhistory">' + value.medicalhistory + '</p>'
+                                + '<p class="hidden" id="patientmedicalalert">' + value.medicalalert + '</p>'
+                                + '<a class="title" href="#" id="patientname">' + value.name + ' </a>'
+                                + '<p><strong>$2300. </strong> Agent Avarage Sales </p>'
+                                + '<p>Tuổi: <span id="patientage">' + value.age + '</span></p>'
+                            + '</div>'
+                            + '</li>';
+
+                    });
+                    $('#queuepatient').html(html);
+                },
+                error: function (errormessage) {
+                    console.log(errormessage.responseText);
+                }
+            });
+        }
+
+        function GetPatient_Exammining() {
+            $.ajax({
+                url: "/Base/GetPatient_Exammining",
+                type: "GET",
+                contentType: "application/json;charset=utf-8",
+                datatype: "json",
+                success: function (data) {
+                    var html = '';
+                    $.each(data, function (key, value) {
+                        console.log(value.name);
+                        html += ' <li class="media event"><a class="pull-left border-green profile_thumb"><i class="fa fa-user red"></i></a><div class="media-body"><a class="title" href="#">' + value.name + ' </a><p><strong>$2300. </strong> Agent Avarage Sales </p><p>Tuổi: ' + value.age + '</p></div></li>';
+
+                    });
+                    $('#examminingpatient').html(html);
+                },
+                error: function (errormessage) {
+                    console.log(errormessage.responseText);
+                }
+            });
+        }
+
+        function LoadDataForSelectMedicalExam() {
+            $('.js-example-basic-single').select2({
+                placeholder: "Lựa chọn danh mục chẩn đoán có sẵn",
+                allowClear: true
+            });
+        }
+        //function LoadInfo_ExamminingPatient(id) {
+        //    $.ajax({
+        //        url: "/Base/GetPatient_Exammining",
+        //        type: "GET",
+        //        contentType: "application/json;charset=utf-8",
+        //        datatype: "json",
+        //        success: function (data) {
+        //            var html = '';
+        //            $.each(data, function (key, value) {
+        //                console.log(value.name);
+        //                html += ' <li class="media event"><a class="pull-left border-green profile_thumb"><i class="fa fa-user red"></i></a><div class="media-body"><a class="title" href="#">' + value.name + ' </a><p><strong>$2300. </strong> Agent Avarage Sales </p><p>Tuổi: ' + value.age + '</p></div></li>';
+
+        //            });
+        //            $('#examminingpatient').append(html);
+        //        },
+        //        error: function (errormessage) {
+        //            console.log(errormessage.responseText);
+        //        }
+        //    });
+        //}
+    </script>
+
+    <script src="~/vendors/contextmenu/jquery.contextMenu.js"></script>
+    <script src="~/vendors/contextmenu/jquery.ui.position.min.js"></script>
+    <link rel="stylesheet" href="~/vendors/contextmenu/jquery.contextMenu.min.css">
+
+}
+

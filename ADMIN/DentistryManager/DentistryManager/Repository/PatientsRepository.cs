@@ -24,7 +24,7 @@ namespace DentistryManager.Repository
                 {
                     obj.id = SafeConvert.ToString(reader["id"]);
                     obj.name = SafeConvert.ToString(reader["name"]);
-                    obj.birthday = SafeConvert.ToDateTime(SafeConvert.ToString(reader["birthday"]));
+                    obj.yearofbirth = SafeConvert.ToInt(reader["yearofbirth"]);
                     obj.address = SafeConvert.ToString(reader["address"]);
                     obj.image = SafeConvert.ToString(reader["image"]);
                     obj.gender = SafeConvert.ToBoolean(reader["gender"]);
@@ -32,6 +32,11 @@ namespace DentistryManager.Repository
                     obj.age = SafeConvert.ToInt(reader["age"]);
                     obj.email = SafeConvert.ToString(reader["email"]);
                     obj.metadata = SafeConvert.ToString(reader["metadata"]);
+                    obj.medicalalert = SafeConvert.ToString(reader["medicalalert"]);
+                    obj.medicalhistory = SafeConvert.ToString(reader["medicalhistory"]);
+                    obj.examjson = SafeConvert.ToString(reader["examjson"]);
+                    obj.treatmentjson = SafeConvert.ToString(reader["treatmentjson"]);
+                    obj.paymentjson = SafeConvert.ToString(reader["paymentjson"]);
                     obj.status = SafeConvert.ToString(reader["status"]);
                     obj.statusinaday = SafeConvert.ToString(reader["statusinaday"]);
                     obj.active = SafeConvert.ToBoolean(reader["active"]);
@@ -58,7 +63,7 @@ namespace DentistryManager.Repository
                         Patients obj = new Patients();
                         obj.id = SafeConvert.ToString(reader["id"]);
                         obj.name = SafeConvert.ToString(reader["name"]);
-                        obj.birthday = SafeConvert.ToDateTime(SafeConvert.ToString(reader["birthday"]));
+                        obj.yearofbirth = SafeConvert.ToInt(reader["yearofbirth"]);
                         obj.address = SafeConvert.ToString(reader["address"]);
                         obj.image = SafeConvert.ToString(reader["image"]);
                         obj.gender = SafeConvert.ToBoolean(reader["gender"]);
@@ -66,6 +71,11 @@ namespace DentistryManager.Repository
                         obj.age = SafeConvert.ToInt(reader["age"]);
                         obj.email = SafeConvert.ToString(reader["email"]);
                         obj.metadata = SafeConvert.ToString(reader["metadata"]);
+                        obj.medicalalert = SafeConvert.ToString(reader["medicalalert"]);
+                        obj.medicalhistory = SafeConvert.ToString(reader["medicalhistory"]);
+                        obj.examjson = SafeConvert.ToString(reader["examjson"]);
+                        obj.treatmentjson = SafeConvert.ToString(reader["treatmentjson"]);
+                        obj.paymentjson = SafeConvert.ToString(reader["paymentjson"]);
                         obj.status = SafeConvert.ToString(reader["status"]);
                         obj.statusinaday = SafeConvert.ToString(reader["statusinaday"]);
                         obj.active = SafeConvert.ToBoolean(reader["active"]);
@@ -97,7 +107,7 @@ namespace DentistryManager.Repository
                         Patients obj = new Patients();
                         obj.id = SafeConvert.ToString(reader["id"]);
                         obj.name = SafeConvert.ToString(reader["name"]);
-                        obj.birthday = SafeConvert.ToDateTime(SafeConvert.ToString(reader["birthday"]));
+                        obj.yearofbirth = SafeConvert.ToInt(reader["yearofbirth"]);
                         obj.address = SafeConvert.ToString(reader["address"]);
                         obj.image = SafeConvert.ToString(reader["image"]);
                         obj.gender = SafeConvert.ToBoolean(reader["gender"]);
@@ -105,6 +115,11 @@ namespace DentistryManager.Repository
                         obj.age = SafeConvert.ToInt(reader["age"]);
                         obj.email = SafeConvert.ToString(reader["email"]);
                         obj.metadata = SafeConvert.ToString(reader["metadata"]);
+                        obj.medicalalert = SafeConvert.ToString(reader["medicalalert"]);
+                        obj.medicalhistory = SafeConvert.ToString(reader["medicalhistory"]);
+                        obj.examjson = SafeConvert.ToString(reader["examjson"]);
+                        obj.treatmentjson = SafeConvert.ToString(reader["treatmentjson"]);
+                        obj.paymentjson = SafeConvert.ToString(reader["paymentjson"]);
                         obj.status = SafeConvert.ToString(reader["status"]);
                         obj.statusinaday = SafeConvert.ToString(reader["statusinaday"]);
                         obj.active = SafeConvert.ToBoolean(reader["active"]);
@@ -136,7 +151,7 @@ namespace DentistryManager.Repository
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.AddWithValue("@name", entity.name);
 
-                    cmd.Parameters.AddWithValue("@birthday", entity.birthday);
+                    cmd.Parameters.AddWithValue("@yearofbirth", entity.yearofbirth);
 
                     if (entity.address.IsNotNull())
                         cmd.Parameters.AddWithValue("@address", entity.address);
@@ -166,6 +181,33 @@ namespace DentistryManager.Repository
                         cmd.Parameters.AddWithValue("@metadata", entity.metadata);
                     else
                         cmd.Parameters.AddWithValue("@metadata", DBNull.Value);
+
+                    if (entity.medicalalert.IsNotNull())
+                        cmd.Parameters.AddWithValue("@medicalalert", entity.medicalalert);
+                    else
+                        cmd.Parameters.AddWithValue("@medicalalert", DBNull.Value);
+
+                    if (entity.medicalhistory.IsNotNull())
+                        cmd.Parameters.AddWithValue("@medicalhistory", entity.medicalhistory);
+                    else
+                        cmd.Parameters.AddWithValue("@medicalhistory", DBNull.Value);
+
+                    if (entity.examjson.IsNotNull())
+                        cmd.Parameters.AddWithValue("@examjson", entity.examjson);
+                    else
+                        cmd.Parameters.AddWithValue("@examjson", DBNull.Value);
+
+                    //
+                    if (entity.treatmentjson.IsNotNull())
+                        cmd.Parameters.AddWithValue("@treatmentjson", entity.treatmentjson);
+                    else
+                        cmd.Parameters.AddWithValue("@treatmentjson", DBNull.Value);
+                    //
+                    if (entity.paymentjson.IsNotNull())
+                        cmd.Parameters.AddWithValue("@paymentjson", entity.paymentjson);
+                    else
+                        cmd.Parameters.AddWithValue("@paymentjson", DBNull.Value);
+                    //
 
                     if (entity.status.IsNotNull())
                         cmd.Parameters.AddWithValue("@status", entity.status);
@@ -199,6 +241,12 @@ namespace DentistryManager.Repository
         public int Edit(Patients entity)
         {
             int i = SqlHelper.ExecuteNonQuery(Const.Connectring, Const.FSP_PATIENT_DELETE, entity);
+            return i;
+        }
+
+        public int Edit_StatusInADay(string id, string statusinaday)
+        {
+            int i = SqlHelper.ExecuteNonQuery(Const.Connectring, Const.FSP_PATIENT_UPDATESTATUSINDAY, id, statusinaday);
             return i;
         }
     }

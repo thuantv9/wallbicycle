@@ -179,6 +179,8 @@
     <Compile Include="Models\EventsRepository.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IRepository.cs" />
+    <Compile Include="Models\MedicalExam.cs" />
+    <Compile Include="Models\MedicalProcedure.cs" />
     <Compile Include="Models\Patients.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\PatientsRepository.cs" />
@@ -475,6 +477,12 @@
     <Content Include="vendors\Chart.js\test\scale.logarithmic.tests.js" />
     <Content Include="vendors\Chart.js\test\scale.radialLinear.tests.js" />
     <Content Include="vendors\Chart.js\test\scale.time.tests.js" />
+    <Content Include="vendors\contextmenu\jquery.contextMenu.css" />
+    <Content Include="vendors\contextmenu\jquery.contextMenu.js" />
+    <Content Include="vendors\contextmenu\jquery.contextMenu.min.css" />
+    <Content Include="vendors\contextmenu\jquery.contextMenu.min.js" />
+    <Content Include="vendors\contextmenu\jquery.ui.position.js" />
+    <Content Include="vendors\contextmenu\jquery.ui.position.min.js" />
     <Content Include="vendors\cropper\dist\cropper.css" />
     <Content Include="vendors\cropper\dist\cropper.js" />
     <Content Include="vendors\cropper\dist\cropper.min.css" />
@@ -4611,6 +4619,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Patient\QueuePatient.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Shared\_partialAddNewPatient.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="vendors\contextmenu\font\context-menu-icons.eot" />
+    <Content Include="vendors\contextmenu\font\context-menu-icons.ttf" />
+    <Content Include="vendors\contextmenu\font\context-menu-icons.woff" />
+    <Content Include="vendors\contextmenu\font\context-menu-icons.woff2" />
+    <Content Include="vendors\contextmenu\jquery.contextMenu.min.css.map" />
+    <Content Include="vendors\contextmenu\jquery.contextMenu.min.js.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

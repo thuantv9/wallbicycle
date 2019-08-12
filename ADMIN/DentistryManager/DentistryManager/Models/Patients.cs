@@ -9,7 +9,7 @@ namespace DentistryManager.Models
     {
         public string id { get; set; }
         public string name { get; set; }
-        public DateTime birthday { get; set; }
+        public int yearofbirth { get; set; }
         public string address { get; set; }
         public string image { get; set; }
         public bool gender { get; set; }
@@ -17,10 +17,13 @@ namespace DentistryManager.Models
         public int age { get; set; }
         public string email { get; set; }
         public string metadata { get; set; }
+        public string medicalalert { get; set; }
+        public string medicalhistory { get; set; }
+        public string examjson { get; set; }
+        public string treatmentjson { get; set; }
+        public string paymentjson { get; set; }
         public string status { get; set; }
-
         public string statusinaday { get; set; }
-
         public bool active { get; set; }
     }
 
@@ -39,4 +42,24 @@ namespace DentistryManager.Models
             extendDict[key] = value;
         }
     }
+
+    public class Exam
+    {
+        public DateTime datetime { get; set; }
+        public string examresult { get; set; }       
+    }
+    public class Treatment
+    {
+        public DateTime datetime { get; set; }
+       // danh sách các thủ thuật điều trị, định dạng trường này như sau: Procedure01|Procedure02
+       // các mã thủ thuật này link đến bảng MedicalProcedure
+        public string idtreatment { get; set; }
+    }
+
+    public class Payment
+    {
+        public DateTime datetime { get; set; }
+        public string idpayment { get; set; }
+    }
+    // Ý tưởng thiết kế bảng Thanh toán cũng như bảng thủ thuât với thanh toán 1 lần và thanh toán nhiều lần
 }

@@ -59,6 +59,7 @@ E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\Dent
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\Antlr3.Runtime.dll
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\EntityFramework.dll
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\EntityFramework.SqlServer.dll
+E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\log4net.dll
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\Microsoft.AspNet.Identity.Core.dll
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\Microsoft.AspNet.Identity.Owin.dll
@@ -82,6 +83,7 @@ E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\Syst
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\System.Web.WebPages.dll
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\System.Web.WebPages.Razor.dll
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\WebGrease.dll
+E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\log4net.xml
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\System.Web.Helpers.xml
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\System.Web.Mvc.xml
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\System.Web.Optimization.xml
@@ -105,8 +107,6 @@ E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\Micr
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\Microsoft.Owin.Security.Google.xml
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\Microsoft.Owin.Security.Twitter.xml
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
+E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\obj\Debug\DentistryManager.csprojResolveAssemblyReference.cache
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\obj\Debug\DentistryManager.dll
 E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\obj\Debug\DentistryManager.pdb
-E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\obj\Debug\DentistryManager.csprojResolveAssemblyReference.cache
-E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\log4net.dll
-E:\DentistryManager\wallbicycle\ADMIN\DentistryManager\DentistryManager\bin\log4net.xml
